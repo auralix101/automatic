@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 import {
   Zap, MessageCircle, Sparkles, ArrowUpRight, Instagram, Youtube,
-  Send, AtSign, Brain, Inbox, Lock, Terminal,
+  Send, AtSign, Brain, Inbox, Lock, Terminal, Check, CheckCheck,
 } from "lucide-react"
 
 const TELEGRAM_URL = "https://t.me/Auralix_studio"
@@ -15,6 +15,7 @@ export function LandingPage() {
   const router = useRouter()
   const heroRef = useRef<HTMLDivElement>(null)
   const [spot, setSpot] = useState({ x: 50, y: 30 })
+  const [dmStep, setDmStep] = useState(0)
 
   useEffect(() => {
     const el = heroRef.current
@@ -30,6 +31,11 @@ export function LandingPage() {
     return () => el.removeEventListener("mousemove", onMove)
   }, [])
 
+  useEffect(() => {
+    const id = setInterval(() => setDmStep((s) => (s + 1) % 5), 1800)
+    return () => clearInterval(id)
+  }, [])
+
   const handleLogin = () => {
     // Instagram Business Login (Instagram API with Instagram Login). client_id must be the
     // Instagram app ID from the Instagram product page, not the parent Meta app ID.
@@ -43,185 +49,122 @@ export function LandingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#050507] text-[#ededed] selection:bg-[#ffe14d] selection:text-black overflow-x-hidden antialiased relative">
+    <div className="min-h-screen bg-[#0a0a0c] text-[#f4f2ec] selection:bg-[#c9ff3f] selection:text-black overflow-x-hidden antialiased relative">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap');
-        .font-serif-display { font-family: 'Instrument Serif', Georgia, serif; }
-        .font-mono-ui { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Space+Mono:wght@400;700&display=swap');
+        .font-display { font-family: 'Fraunces', Georgia, serif; font-optical-sizing: auto; }
+        .font-mono-ui { font-family: 'Space Mono', ui-monospace, monospace; }
 
-        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-        .marquee-track { animation: marquee 26s linear infinite; }
+        :root {
+          --lime: #c9ff3f;
+          --violet: #8b7cff;
+          --ink: #0a0a0c;
+          --paper: #f4f2ec;
+        }
 
-        @keyframes fade-up { from { opacity: 0; transform: translateY(20px); filter: blur(6px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
-        .fade-up { animation: fade-up .9s cubic-bezier(.2,.7,.2,1) both; }
+        @keyframes fade-up { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-up { animation: fade-up 1s cubic-bezier(.16,.8,.24,1) both; }
 
         @keyframes drift {
           0%, 100% { transform: translate(0,0) scale(1); }
-          33% { transform: translate(5%, -7%) scale(1.12); }
-          66% { transform: translate(-4%, 5%) scale(0.92); }
+          50% { transform: translate(6%, -5%) scale(1.1); }
         }
-        .blob { animation: drift 16s ease-in-out infinite; }
-        .blob-slow { animation: drift 24s ease-in-out infinite reverse; }
-        .blob-slower { animation: drift 34s ease-in-out infinite; }
+        .blob { animation: drift 20s ease-in-out infinite; }
+        .blob-rev { animation: drift 28s ease-in-out infinite reverse; }
 
-        @keyframes shimmer {
-          0% { background-position: 0% 50%; }
-          100% { background-position: 200% 50%; }
-        }
-        .text-shimmer {
-          background: linear-gradient(90deg, #ffe14d 0%, #fff7cf 25%, #ffe14d 50%, #fff7cf 75%, #ffe14d 100%);
-          background-size: 200% auto;
-          -webkit-background-clip: text;
-          background-clip: text;
-          color: transparent;
-          animation: shimmer 5s linear infinite;
-        }
+        @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        .ticker-track { animation: ticker 34s linear infinite; }
 
-        @keyframes pulse-glow {
-          0%, 100% { box-shadow: 0 0 25px 0px rgba(255,225,77,0.4), 0 0 60px -10px rgba(255,225,77,0.25); }
-          50% { box-shadow: 0 0 50px 8px rgba(255,225,77,0.6), 0 0 90px -6px rgba(255,225,77,0.4); }
-        }
-        .glow-btn { animation: pulse-glow 2.8s ease-in-out infinite; }
+        @keyframes blink-caret { 50% { opacity: 0; } }
+        .caret { animation: blink-caret 1s step-end infinite; }
 
-        @keyframes float-y {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-8px); }
+        @keyframes pop-in {
+          from { opacity: 0; transform: translateY(10px) scale(.92); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
         }
-        .float { animation: float-y 5s ease-in-out infinite; }
+        .pop-in { animation: pop-in .45s cubic-bezier(.2,.8,.3,1) both; }
 
-        @keyframes badge-spin { to { transform: rotate(360deg); } }
-        .badge-spin { animation: badge-spin 14s linear infinite; }
-
-        @keyframes gradient-x {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
+        @keyframes glow-pulse {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(201,255,63,0.5); }
+          50% { box-shadow: 0 0 0 8px rgba(201,255,63,0); }
         }
-        .gradient-x { background-size: 200% 200%; animation: gradient-x 8s ease infinite; }
+        .glow-pulse { animation: glow-pulse 2.2s ease-out infinite; }
 
         .grain::before {
-          content: ""; position: fixed; inset: 0; z-index: 5; pointer-events: none; opacity: .04; mix-blend-mode: overlay;
+          content: ""; position: fixed; inset: 0; z-index: 5; pointer-events: none; opacity: .045; mix-blend-mode: overlay;
           background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
-        .glass {
-          background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
-          border: 1px solid rgba(255,255,255,0.1);
+        .panel {
+          background: rgba(244,242,236,0.03);
+          border: 1px solid rgba(244,242,236,0.1);
+        }
+        .panel-solid { background: #111114; border: 1px solid rgba(244,242,236,0.1); }
+
+        .lime-btn {
+          background: var(--lime);
+          color: #0a0a0c;
+          transition: transform .35s cubic-bezier(.2,.8,.3,1), box-shadow .35s ease;
+        }
+        .lime-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 40px -10px rgba(201,255,63,0.55); }
+        .lime-btn:active { transform: translateY(0); }
+
+        .bento-item {
+          transition: border-color .4s ease, background .4s ease, transform .4s cubic-bezier(.2,.8,.3,1);
+        }
+        .bento-item:hover {
+          border-color: rgba(201,255,63,0.35);
+          background: rgba(201,255,63,0.045);
+          transform: translateY(-3px);
         }
 
-        .card-hover {
-          position: relative;
-          transition: transform .4s cubic-bezier(.2,.7,.2,1), border-color .4s ease, background .4s ease, box-shadow .4s ease;
-        }
-        .card-hover:hover {
-          transform: translateY(-6px) scale(1.015);
-          border-color: rgba(255,225,77,0.4);
-          background: linear-gradient(180deg, rgba(255,225,77,0.08), rgba(255,255,255,0.02));
-          box-shadow: 0 20px 60px -20px rgba(255,225,77,0.25);
-        }
-        .card-hover::after {
-          content: "";
-          position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
-          opacity: 0; transition: opacity .4s ease;
-          box-shadow: 0 0 50px 6px rgba(255,225,77,0.18);
-        }
-        .card-hover:hover::after { opacity: 1; }
-        .card-hover .icon-box { transition: all .4s cubic-bezier(.2,.7,.2,1); }
-        .card-hover:hover .icon-box {
-          border-color: rgba(255,225,77,0.5);
-          color: #ffe14d;
-          box-shadow: 0 0 24px rgba(255,225,77,0.35);
-          transform: scale(1.08) rotate(-4deg);
-        }
+        .num-tab { transition: color .3s ease, border-color .3s ease; }
 
-        .btn-shine { position: relative; overflow: hidden; }
-        .btn-shine::before {
-          content: "";
-          position: absolute; top: 0; left: -60%; width: 40%; height: 100%;
-          background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
-          transform: skewX(-20deg);
-          transition: left .6s ease;
-        }
-        .btn-shine:hover::before { left: 130%; }
+        .rule { background: linear-gradient(90deg, transparent, rgba(244,242,236,0.18), transparent); }
 
-        .border-beam { position: relative; }
-        .border-beam::before {
-          content: "";
-          position: absolute; inset: -1px; border-radius: inherit; padding: 1px;
-          background: conic-gradient(from 0deg, transparent 0%, rgba(255,225,77,0.9) 8%, transparent 18%, transparent 50%, rgba(42,171,238,0.7) 58%, transparent 68%);
-          -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-          -webkit-mask-composite: xor; mask-composite: exclude;
-          animation: spin 6s linear infinite;
-          opacity: 0.7;
+        .chip {
+          transition: border-color .3s ease, color .3s ease, transform .3s ease;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        .brand-mark {
-          transition: transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s ease;
-        }
-        .nav-brand:hover .brand-mark {
-          transform: rotate(-8deg) scale(1.08);
-          box-shadow: 0 0 26px rgba(255,225,77,0.7);
-        }
-
-        .link-underline { position: relative; }
-        .link-underline::after {
-          content: ""; position: absolute; left: 0; bottom: -2px; width: 0; height: 1px;
-          background: currentColor; transition: width .3s ease;
-        }
-        .link-underline:hover::after { width: 100%; }
+        .chip:hover { border-color: rgba(201,255,63,0.5); color: var(--lime); transform: translateY(-1px); }
 
         @media (prefers-reduced-motion: reduce) {
-          .blob, .blob-slow, .blob-slower, .text-shimmer, .glow-btn, .fade-up, .marquee-track, .border-beam::before, .float, .badge-spin, .gradient-x { animation: none !important; }
+          .blob, .blob-rev, .ticker-track, .fade-up, .caret, .pop-in, .glow-pulse { animation: none !important; }
         }
       `}</style>
 
       <div className="grain" />
 
-      {/* Ambient background */}
+      {/* Ambient */}
       <div className="fixed inset-0 -z-10 overflow-hidden">
-        <div className="blob absolute -top-40 -left-20 w-[46rem] h-[46rem] rounded-full bg-[#ffe14d]/[0.13] blur-[130px]" />
-        <div className="blob-slow absolute top-1/3 -right-32 w-[40rem] h-[40rem] rounded-full bg-[#2AABEE]/[0.13] blur-[130px]" />
-        <div className="blob-slower absolute bottom-0 left-1/4 w-[34rem] h-[34rem] rounded-full bg-[#ff5f9e]/[0.08] blur-[140px]" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_40%,transparent_100%)]" />
+        <div className="blob absolute -top-56 left-1/3 w-[50rem] h-[50rem] rounded-full bg-[#c9ff3f]/[0.07] blur-[150px]" />
+        <div className="blob-rev absolute bottom-0 -left-40 w-[40rem] h-[40rem] rounded-full bg-[#8b7cff]/[0.10] blur-[140px]" />
       </div>
 
       {/* Nav */}
-      <nav className="sticky top-0 z-50 flex items-center justify-between px-5 md:px-10 h-16 glass">
-        <div className="nav-brand flex items-center gap-2.5">
-          <div className="brand-mark w-7 h-7 bg-[#ffe14d] text-black flex items-center justify-center rounded-[6px] shadow-[0_0_18px_rgba(255,225,77,0.55)]">
-            <Zap className="w-3.5 h-3.5" strokeWidth={2.5} />
-          </div>
-          <span className="font-mono-ui text-sm font-bold tracking-tight">INSTA AUTO BY SHAHROZ MALIK</span>
-        </div>
+      <nav className="sticky top-0 z-50 flex items-center justify-between px-5 md:px-10 h-16 border-b border-white/[0.07] bg-[#0a0a0c]/80 backdrop-blur-xl">
         <div className="flex items-center gap-2">
-          <a
-            href={INSTAGRAM_URL} target="_blank" rel="noreferrer"
-            className="flex items-center gap-1.5 font-mono-ui text-xs text-neutral-400 hover:text-white border border-white/10 hover:border-[#ffe14d]/50 rounded-full px-3.5 py-1.5 transition-all hover:shadow-[0_0_16px_rgba(255,225,77,0.25)]"
-          >
-            <Instagram className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Instagram</span>
+          <div className="w-6 h-6 bg-[var(--lime)] flex items-center justify-center rounded-[4px]">
+            <Zap className="w-3.5 h-3.5 text-black" strokeWidth={2.5} />
+          </div>
+          <span className="font-mono-ui text-[11px] font-bold tracking-[0.08em]">INSTA AUTO BY SHAHROZ MALIK</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer"
+            className="chip hidden sm:flex items-center gap-1.5 font-mono-ui text-[11px] text-neutral-400 border border-white/10 rounded-full px-3 py-1.5">
+            <Instagram className="w-3.5 h-3.5" /> IG
           </a>
-          <a
-            href={YOUTUBE_URL} target="_blank" rel="noreferrer"
-            className="flex items-center gap-1.5 font-mono-ui text-xs text-neutral-400 hover:text-white border border-white/10 hover:border-[#ff4d4d]/50 rounded-full px-3.5 py-1.5 transition-all hover:shadow-[0_0_16px_rgba(255,77,77,0.25)]"
-          >
-            <Youtube className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">YouTube</span>
+          <a href={YOUTUBE_URL} target="_blank" rel="noreferrer"
+            className="chip hidden sm:flex items-center gap-1.5 font-mono-ui text-[11px] text-neutral-400 border border-white/10 rounded-full px-3 py-1.5">
+            <Youtube className="w-3.5 h-3.5" /> YT
           </a>
           {process.env.NODE_ENV === "development" && (
-            <button
-              onClick={handleTestLogin}
-              className="font-mono-ui text-xs font-bold text-[#ffe14d] border border-[#ffe14d]/30 rounded-full px-4 py-1.5 hover:bg-[#ffe14d]/10 transition-colors"
-            >
+            <button onClick={handleTestLogin}
+              className="font-mono-ui text-[11px] font-bold text-[var(--lime)] border border-[var(--lime)]/30 rounded-full px-3.5 py-1.5 hover:bg-[var(--lime)]/10 transition-colors">
               Dev Login
             </button>
           )}
-          <button
-            onClick={handleLogin}
-            className="btn-shine font-mono-ui text-xs font-bold bg-white text-black rounded-full px-4 py-1.5 hover:bg-[#ffe14d] transition-colors"
-          >
+          <button onClick={handleLogin}
+            className="lime-btn font-mono-ui text-[11px] font-bold rounded-full px-4 py-1.5">
             Log in
           </button>
         </div>
@@ -229,74 +172,128 @@ export function LandingPage() {
 
       {/* Hero */}
       <main className="relative z-10">
-        <section
-          ref={heroRef}
-          className="relative px-5 md:px-10 pt-16 md:pt-28 pb-16 max-w-6xl mx-auto"
-        >
+        <section ref={heroRef} className="relative px-5 md:px-10 pt-14 md:pt-24 pb-20 max-w-6xl mx-auto grid md:grid-cols-[1.15fr_0.85fr] gap-12 items-center">
           <div
-            className="pointer-events-none absolute inset-0 -z-10 opacity-80 transition-[background] duration-300"
-            style={{
-              background: `radial-gradient(650px circle at ${spot.x}% ${spot.y}%, rgba(255,225,77,0.1), transparent 60%)`,
-            }}
+            className="pointer-events-none absolute inset-0 -z-10 opacity-70"
+            style={{ background: `radial-gradient(560px circle at ${spot.x}% ${spot.y}%, rgba(201,255,63,0.06), transparent 60%)` }}
           />
 
-          <div className="fade-up" style={{ animationDelay: "0ms" }}>
-            <p className="font-mono-ui text-[11px] uppercase tracking-[0.25em] text-neutral-500 mb-6 flex items-center gap-2 glass w-fit rounded-full px-3.5 py-1.5">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ffe14d] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ffe14d]" />
+          <div>
+            <div className="fade-up flex items-center gap-2 mb-7" style={{ animationDelay: "0ms" }}>
+              <span className="font-mono-ui text-[10px] tracking-[0.2em] uppercase text-neutral-500 border border-white/10 rounded-full px-3 py-1">
+                Self-hosted
               </span>
-              Instagram automation // self-hosted // no monthly fees
-            </p>
-          </div>
+              <span className="font-mono-ui text-[10px] tracking-[0.2em] uppercase text-neutral-500 border border-white/10 rounded-full px-3 py-1">
+                $0/mo
+              </span>
+              <span className="font-mono-ui text-[10px] tracking-[0.2em] uppercase text-[var(--lime)] border border-[var(--lime)]/30 rounded-full px-3 py-1">
+                Open source
+              </span>
+            </div>
 
-          <h1 className="fade-up font-serif-display text-[15vw] md:text-[7.5rem] leading-[0.95] tracking-tight" style={{ animationDelay: "80ms" }}>
-            Your DMs,
-            <br />
-            <span className="italic text-shimmer">on autopilot.</span>
-          </h1>
+            <h1 className="fade-up font-display font-medium text-[13vw] md:text-[5.2rem] leading-[0.98] tracking-tight" style={{ animationDelay: "100ms" }}>
+              Reply to every DM
+              <br />
+              <span className="italic text-[var(--lime)]">before you finish</span>
+              <br />
+              your coffee.
+            </h1>
 
-          <div className="fade-up mt-10 flex flex-col md:flex-row md:items-end gap-8 md:gap-16" style={{ animationDelay: "160ms" }}>
-            <p className="text-neutral-400 text-base md:text-lg max-w-md leading-relaxed">
+            <p className="fade-up mt-7 text-neutral-400 text-base md:text-lg max-w-lg leading-relaxed" style={{ animationDelay: "180ms" }}>
               Comment-to-DM funnels, keyword triggers, story reactions, AI replies, a live inbox,
-              and Reels scheduling. The open-source ManyChat alternative — your data stays in your own Supabase.
+              and Reels scheduling — the open-source ManyChat alternative. Your data lives in your own Supabase, not ours.
             </p>
-            <div className="flex flex-wrap items-center gap-3">
-              <button
-                onClick={handleLogin}
-                className="glow-btn btn-shine group flex items-center gap-2 bg-[#ffe14d] text-black font-mono-ui text-sm font-bold px-7 py-4 rounded-full hover:scale-[1.05] active:scale-[0.97] transition-transform"
-              >
+
+            <div className="fade-up mt-9 flex flex-wrap items-center gap-3" style={{ animationDelay: "260ms" }}>
+              <button onClick={handleLogin}
+                className="lime-btn glow-pulse group flex items-center gap-2 font-mono-ui text-sm font-bold px-6 py-3.5 rounded-full">
                 Connect Instagram
                 <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform" />
               </button>
               {process.env.NODE_ENV === "development" && (
-                <button
-                  onClick={handleTestLogin}
-                  className="group flex items-center gap-2 font-mono-ui text-sm font-bold text-[#ffe14d] border border-[#ffe14d]/25 px-7 py-4 rounded-full hover:bg-[#ffe14d]/10 active:scale-[0.98] transition-all"
-                >
+                <button onClick={handleTestLogin}
+                  className="chip flex items-center gap-2 font-mono-ui text-sm font-bold text-neutral-300 border border-white/15 px-6 py-3.5 rounded-full">
                   <Terminal className="w-4 h-4" />
                   Dev Login
                 </button>
               )}
-              <a
-                href={TELEGRAM_URL} target="_blank" rel="noreferrer"
-                className="flex items-center gap-2 font-mono-ui text-sm text-neutral-300 border border-white/15 px-6 py-4 rounded-full hover:border-[#2AABEE]/60 hover:text-[#2AABEE] transition-all hover:shadow-[0_0_20px_rgba(42,171,238,0.25)]"
-              >
+              <a href={TELEGRAM_URL} target="_blank" rel="noreferrer"
+                className="chip flex items-center gap-2 font-mono-ui text-sm text-neutral-300 border border-white/15 px-6 py-3.5 rounded-full">
                 <Send className="w-4 h-4" />
                 Telegram support
               </a>
             </div>
           </div>
+
+          {/* Signature element: live animated DM mockup */}
+          <div className="fade-up relative" style={{ animationDelay: "220ms" }}>
+            <div className="panel-solid rounded-[22px] p-5 shadow-2xl shadow-black/60 max-w-sm mx-auto">
+              <div className="flex items-center gap-2.5 pb-4 border-b border-white/[0.08]">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[var(--lime)] to-[var(--violet)]" />
+                <div>
+                  <p className="text-[13px] font-semibold">creator.studio</p>
+                  <p className="text-[10px] text-neutral-500 font-mono-ui">automation active</p>
+                </div>
+                <span className="ml-auto relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--lime)] opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--lime)]" />
+                </span>
+              </div>
+
+              <div className="pt-4 space-y-2.5 min-h-[220px]">
+                {dmStep >= 0 && (
+                  <div className="pop-in flex justify-end">
+                    <div className="bg-white/[0.08] rounded-2xl rounded-tr-sm px-3.5 py-2 text-[12.5px] max-w-[75%]">
+                      commented "PRICE" on your reel 🔥
+                    </div>
+                  </div>
+                )}
+                {dmStep >= 1 && (
+                  <div className="pop-in flex justify-start">
+                    <div className="bg-[var(--lime)]/15 border border-[var(--lime)]/25 rounded-2xl rounded-tl-sm px-3.5 py-2 text-[12.5px] max-w-[80%]">
+                      Sent you the price list in your DMs ✅
+                    </div>
+                  </div>
+                )}
+                {dmStep >= 2 && (
+                  <div className="pop-in flex justify-start">
+                    <div className="bg-white/[0.06] border border-white/10 rounded-2xl rounded-tl-sm px-3.5 py-2 text-[12.5px] max-w-[85%]">
+                      Hey! Here's our full lineup + bundle pricing 📎
+                    </div>
+                  </div>
+                )}
+                {dmStep >= 3 && (
+                  <div className="pop-in flex justify-end">
+                    <div className="bg-white/[0.08] rounded-2xl rounded-tr-sm px-3.5 py-2 text-[12.5px] max-w-[75%]">
+                      perfect, do you ship to Lahore?
+                    </div>
+                  </div>
+                )}
+                {dmStep >= 4 && (
+                  <div className="pop-in flex justify-start items-center gap-1.5">
+                    <div className="bg-white/[0.06] border border-white/10 rounded-2xl rounded-tl-sm px-3.5 py-2 text-[12.5px] max-w-[80%] flex items-center gap-1">
+                      Yes — nationwide<span className="caret">|</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-white/[0.08] flex items-center justify-between font-mono-ui text-[10px] text-neutral-500">
+                <span className="flex items-center gap-1"><CheckCheck className="w-3 h-3 text-[var(--lime)]" /> auto-replied in 0.4s</span>
+                <span>AI + rules</span>
+              </div>
+            </div>
+          </div>
         </section>
 
-        {/* Marquee */}
-        <div className="relative border-y border-white/[0.08] py-3 overflow-hidden glass">
-          <div className="marquee-track flex whitespace-nowrap font-mono-ui text-xs uppercase tracking-[0.2em] text-neutral-500 gap-8 w-max">
+        {/* Ticker */}
+        <div className="relative border-y border-white/[0.08] py-3 overflow-hidden bg-white/[0.02]">
+          <div className="ticker-track flex whitespace-nowrap font-mono-ui text-[11px] uppercase tracking-[0.2em] text-neutral-500 gap-8 w-max">
             {Array.from({ length: 2 }).map((_, copy) => (
               <div key={copy} className="flex gap-8">
                 {["comment → DM", "keyword triggers", "story reactions", "AI auto-reply", "live inbox", "ice breakers", "follow gate", "quick replies", "media attachments", "public + private replies"].map((t) => (
                   <span key={t} className="flex items-center gap-8">
-                    {t} <span className="text-[#ffe14d] drop-shadow-[0_0_6px_rgba(255,225,77,0.8)]">✦</span>
+                    {t} <span className="text-[var(--lime)]">◆</span>
                   </span>
                 ))}
               </div>
@@ -304,65 +301,54 @@ export function LandingPage() {
           </div>
         </div>
 
-        {/* Feature grid */}
+        {/* Bento features */}
         <section className="px-5 md:px-10 py-20 max-w-6xl mx-auto">
-          <div className="flex items-baseline justify-between mb-10">
-            <h2 className="font-serif-display text-4xl md:text-5xl">
-              Everything the paid tools do.
+          <div className="flex items-end justify-between mb-10 gap-6">
+            <h2 className="font-display font-medium text-3xl md:text-5xl max-w-lg leading-[1.05]">
+              Everything the paid tools do. None of the invoice.
             </h2>
-            <span className="hidden md:block font-mono-ui text-xs text-neutral-500 border border-white/10 rounded-full px-3 py-1 glass">$0/month</span>
+            <div className="rule hidden md:block h-px flex-1 mb-3" />
           </div>
 
-          <div className="grid md:grid-cols-3 gap-4">
-            <Feature icon={<MessageCircle className="w-4 h-4" />} title="Comment → DM funnels"
-              desc="Keyword or reply-all triggers on any post. Choose DM only, public reply only, or both — with your own rotating public replies." />
-            <Feature icon={<Send className="w-4 h-4" />} title="DM keyword automation"
-              desc="Auto-respond to DMs with text, media, or rich cards with buttons. Quick-reply chips guide people through your funnel." />
-            <Feature icon={<AtSign className="w-4 h-4" />} title="Story triggers"
-              desc="React to story mentions, emoji reactions, and story replies. Filter by emoji or keyword." />
-            <Feature icon={<Brain className="w-4 h-4" />} title="AI auto-reply"
-              desc="Feed it your account context — niche, products, tone — and let AI handle unmatched DMs like a human." />
-            <Feature icon={<Inbox className="w-4 h-4" />} title="Live inbox"
-              desc="Every conversation in one dashboard. Jump in manually anytime, fire quick responses from your saved automations." />
-            <Feature icon={<Lock className="w-4 h-4" />} title="Follow gate"
-              desc="Lock content behind a follow. Non-followers get a follow prompt; one tap later they unlock the goods." />
-            <Feature icon={<Sparkles className="w-4 h-4" />} title="Human-like sending"
-              desc="Optional typing indicators and randomized delays so replies land natural, not botty." />
-            <Feature icon={<Terminal className="w-4 h-4" />} title="Self-hosted & hackable"
-              desc="Next.js + Supabase. Deploy on free tiers. Read every line, fork it, own your data and your tokens." />
+          <div className="grid md:grid-cols-6 gap-3">
+            <Bento span="md:col-span-3 md:row-span-2" icon={<Brain className="w-5 h-5" />} title="AI auto-reply"
+              desc="Feed it your account context — niche, products, tone — and let AI handle unmatched DMs like a human would, 24/7." big />
+            <Bento span="md:col-span-3" icon={<MessageCircle className="w-5 h-5" />} title="Comment → DM funnels"
+              desc="Keyword or reply-all triggers on any post. DM only, public reply only, or both." />
+            <Bento span="md:col-span-3" icon={<Inbox className="w-5 h-5" />} title="Live inbox"
+              desc="Every conversation in one dashboard. Jump in manually anytime." />
+            <Bento span="md:col-span-2" icon={<AtSign className="w-5 h-5" />} title="Story triggers"
+              desc="React to mentions, emoji reactions, replies." />
+            <Bento span="md:col-span-2" icon={<Lock className="w-5 h-5" />} title="Follow gate"
+              desc="Lock content behind a follow, one tap to unlock." />
+            <Bento span="md:col-span-2" icon={<Terminal className="w-5 h-5" />} title="Self-hosted"
+              desc="Next.js + Supabase. Own your data and tokens." />
           </div>
         </section>
 
-        {/* Community strip */}
+        {/* Community */}
         <section className="px-5 md:px-10 pb-24 max-w-6xl mx-auto">
-          <div className="border-beam relative rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 glass overflow-hidden">
-            <div className="float pointer-events-none absolute -top-24 -right-24 w-64 h-64 rounded-full bg-[#ffe14d]/10 blur-[80px]" />
-            <div className="float pointer-events-none absolute -bottom-20 -left-16 w-56 h-56 rounded-full bg-[#2AABEE]/10 blur-[80px]" style={{ animationDelay: "1.5s" }} />
+          <div className="relative rounded-[24px] p-8 md:p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 panel-solid overflow-hidden">
+            <div className="blob pointer-events-none absolute -top-24 -right-24 w-64 h-64 rounded-full bg-[var(--lime)]/10 blur-[90px]" />
             <div className="relative">
-              <h3 className="font-serif-display text-3xl md:text-4xl mb-2">Built in the open.</h3>
+              <h3 className="font-display font-medium text-3xl md:text-4xl mb-2">Built in the open.</h3>
               <p className="text-neutral-500 text-sm max-w-md">
                 Questions, bugs, feature requests — the Telegram chat is where it all happens.
                 Follow along on Instagram and YouTube too.
               </p>
             </div>
             <div className="relative flex flex-wrap items-center gap-3">
-              <a
-                href={TELEGRAM_URL} target="_blank" rel="noreferrer"
-                className="btn-shine flex items-center gap-2 bg-[#2AABEE] text-white font-mono-ui text-xs font-bold px-5 py-3 rounded-full hover:brightness-110 hover:scale-105 transition-all hover:shadow-[0_0_24px_rgba(42,171,238,0.45)]"
-              >
+              <a href={TELEGRAM_URL} target="_blank" rel="noreferrer"
+                className="chip flex items-center gap-2 border border-white/15 text-white font-mono-ui text-xs font-bold px-5 py-3 rounded-full">
                 <Send className="w-3.5 h-3.5" /> Join Telegram
               </a>
-              <a
-                href={YOUTUBE_URL} target="_blank" rel="noreferrer"
-                className="flex items-center gap-2 border border-white/15 text-neutral-300 font-mono-ui text-xs font-bold px-5 py-3 rounded-full hover:border-[#ff4d4d]/50 hover:scale-105 transition-all hover:shadow-[0_0_20px_rgba(255,77,77,0.25)]"
-              >
-                <Youtube className="w-3.5 h-3.5 text-[#ff4d4d]" /> Subscribe on YouTube
+              <a href={YOUTUBE_URL} target="_blank" rel="noreferrer"
+                className="chip flex items-center gap-2 border border-white/15 text-neutral-300 font-mono-ui text-xs font-bold px-5 py-3 rounded-full">
+                <Youtube className="w-3.5 h-3.5" /> Subscribe
               </a>
-              <a
-                href={INSTAGRAM_URL} target="_blank" rel="noreferrer"
-                className="flex items-center gap-2 border border-white/15 text-neutral-300 font-mono-ui text-xs font-bold px-5 py-3 rounded-full hover:border-[#ffe14d]/50 hover:scale-105 transition-all hover:shadow-[0_0_20px_rgba(255,225,77,0.3)]"
-              >
-                <Instagram className="w-3.5 h-3.5 text-[#ffe14d]" /> Follow on Instagram
+              <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer"
+                className="chip flex items-center gap-2 border border-white/15 text-neutral-300 font-mono-ui text-xs font-bold px-5 py-3 rounded-full">
+                <Instagram className="w-3.5 h-3.5" /> Follow
               </a>
             </div>
           </div>
@@ -370,28 +356,30 @@ export function LandingPage() {
       </main>
 
       {/* Footer */}
-      <footer className="relative border-t border-white/[0.08] px-5 md:px-10 py-8 flex flex-col md:flex-row items-center justify-between gap-4 glass">
+      <footer className="relative border-t border-white/[0.08] px-5 md:px-10 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
         <span className="font-mono-ui text-[11px] text-neutral-600">
           INSTA AUTO BY SHAHROZ MALIK — Instagram automation.
         </span>
         <div className="flex items-center gap-5 font-mono-ui text-[11px] text-neutral-500">
-          <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="link-underline hover:text-[#ffe14d] transition-colors">Instagram</a>
-          <a href={YOUTUBE_URL} target="_blank" rel="noreferrer" className="link-underline hover:text-[#ff4d4d] transition-colors">YouTube</a>
-          <a href={TELEGRAM_URL} target="_blank" rel="noreferrer" className="link-underline hover:text-[#2AABEE] transition-colors">Telegram support</a>
+          <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="hover:text-[var(--lime)] transition-colors">Instagram</a>
+          <a href={YOUTUBE_URL} target="_blank" rel="noreferrer" className="hover:text-[var(--lime)] transition-colors">YouTube</a>
+          <a href={TELEGRAM_URL} target="_blank" rel="noreferrer" className="hover:text-[var(--lime)] transition-colors">Telegram support</a>
         </div>
       </footer>
     </div>
   )
 }
 
-function Feature({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) {
+function Bento({ icon, title, desc, span, big }: { icon: React.ReactNode; title: string; desc: string; span: string; big?: boolean }) {
   return (
-    <div className="card-hover glass rounded-2xl p-7">
-      <div className="icon-box w-9 h-9 rounded-lg border border-white/10 flex items-center justify-center text-neutral-500 mb-5">
+    <div className={`bento-item panel rounded-2xl p-6 flex flex-col ${span} ${big ? "justify-between" : ""}`}>
+      <div className="w-9 h-9 rounded-lg border border-white/10 flex items-center justify-center text-[var(--lime)] mb-4">
         {icon}
       </div>
-      <h3 className="font-mono-ui text-sm font-bold text-white mb-2">{title}</h3>
-      <p className="text-[13px] text-neutral-500 leading-relaxed">{desc}</p>
+      <div>
+        <h3 className={`font-display font-medium ${big ? "text-2xl mb-2" : "text-base mb-1.5"}`}>{title}</h3>
+        <p className={`text-neutral-500 leading-relaxed ${big ? "text-sm" : "text-[12.5px]"}`}>{desc}</p>
+      </div>
     </div>
   )
 }
