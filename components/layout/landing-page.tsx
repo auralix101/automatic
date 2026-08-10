@@ -50,18 +50,19 @@ export function LandingPage() {
         .font-mono-ui { font-family: 'JetBrains Mono', ui-monospace, monospace; }
 
         @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-        .marquee-track { animation: marquee 30s linear infinite; }
+        .marquee-track { animation: marquee 26s linear infinite; }
 
-        @keyframes fade-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-up { animation: fade-up .8s cubic-bezier(.2,.7,.2,1) both; }
+        @keyframes fade-up { from { opacity: 0; transform: translateY(20px); filter: blur(6px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
+        .fade-up { animation: fade-up .9s cubic-bezier(.2,.7,.2,1) both; }
 
         @keyframes drift {
           0%, 100% { transform: translate(0,0) scale(1); }
-          33% { transform: translate(4%, -6%) scale(1.08); }
-          66% { transform: translate(-3%, 4%) scale(0.96); }
+          33% { transform: translate(5%, -7%) scale(1.12); }
+          66% { transform: translate(-4%, 5%) scale(0.92); }
         }
-        .blob { animation: drift 18s ease-in-out infinite; }
-        .blob-slow { animation: drift 26s ease-in-out infinite reverse; }
+        .blob { animation: drift 16s ease-in-out infinite; }
+        .blob-slow { animation: drift 24s ease-in-out infinite reverse; }
+        .blob-slower { animation: drift 34s ease-in-out infinite; }
 
         @keyframes shimmer {
           0% { background-position: 0% 50%; }
@@ -73,49 +74,72 @@ export function LandingPage() {
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
-          animation: shimmer 6s linear infinite;
+          animation: shimmer 5s linear infinite;
         }
 
         @keyframes pulse-glow {
-          0%, 100% { box-shadow: 0 0 20px 0px rgba(255,225,77,0.35), 0 0 0px 0px rgba(255,225,77,0); }
-          50% { box-shadow: 0 0 40px 6px rgba(255,225,77,0.55), 0 0 0px 0px rgba(255,225,77,0); }
+          0%, 100% { box-shadow: 0 0 25px 0px rgba(255,225,77,0.4), 0 0 60px -10px rgba(255,225,77,0.25); }
+          50% { box-shadow: 0 0 50px 8px rgba(255,225,77,0.6), 0 0 90px -6px rgba(255,225,77,0.4); }
         }
-        .glow-btn { animation: pulse-glow 3.2s ease-in-out infinite; }
+        .glow-btn { animation: pulse-glow 2.8s ease-in-out infinite; }
+
+        @keyframes float-y {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-8px); }
+        }
+        .float { animation: float-y 5s ease-in-out infinite; }
+
+        @keyframes badge-spin { to { transform: rotate(360deg); } }
+        .badge-spin { animation: badge-spin 14s linear infinite; }
+
+        @keyframes gradient-x {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+        .gradient-x { background-size: 200% 200%; animation: gradient-x 8s ease infinite; }
 
         .grain::before {
-          content: ""; position: fixed; inset: 0; z-index: 5; pointer-events: none; opacity: .035; mix-blend-mode: overlay;
+          content: ""; position: fixed; inset: 0; z-index: 5; pointer-events: none; opacity: .04; mix-blend-mode: overlay;
           background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
         .glass {
-          background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015));
-          backdrop-filter: blur(14px);
-          -webkit-backdrop-filter: blur(14px);
-          border: 1px solid rgba(255,255,255,0.09);
+          background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          border: 1px solid rgba(255,255,255,0.1);
         }
 
         .card-hover {
           position: relative;
-          transition: transform .35s cubic-bezier(.2,.7,.2,1), border-color .35s ease, background .35s ease;
+          transition: transform .4s cubic-bezier(.2,.7,.2,1), border-color .4s ease, background .4s ease, box-shadow .4s ease;
         }
         .card-hover:hover {
-          transform: translateY(-4px);
-          border-color: rgba(255,225,77,0.35);
-          background: linear-gradient(180deg, rgba(255,225,77,0.06), rgba(255,255,255,0.015));
+          transform: translateY(-6px) scale(1.015);
+          border-color: rgba(255,225,77,0.4);
+          background: linear-gradient(180deg, rgba(255,225,77,0.08), rgba(255,255,255,0.02));
+          box-shadow: 0 20px 60px -20px rgba(255,225,77,0.25);
         }
         .card-hover::after {
           content: "";
           position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
-          opacity: 0; transition: opacity .35s ease;
-          box-shadow: 0 0 40px 4px rgba(255,225,77,0.15);
+          opacity: 0; transition: opacity .4s ease;
+          box-shadow: 0 0 50px 6px rgba(255,225,77,0.18);
         }
         .card-hover:hover::after { opacity: 1; }
+        .card-hover .icon-box { transition: all .4s cubic-bezier(.2,.7,.2,1); }
+        .card-hover:hover .icon-box {
+          border-color: rgba(255,225,77,0.5);
+          color: #ffe14d;
+          box-shadow: 0 0 24px rgba(255,225,77,0.35);
+          transform: scale(1.08) rotate(-4deg);
+        }
 
         .btn-shine { position: relative; overflow: hidden; }
         .btn-shine::before {
           content: "";
           position: absolute; top: 0; left: -60%; width: 40%; height: 100%;
-          background: linear-gradient(120deg, transparent, rgba(255,255,255,0.55), transparent);
+          background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
           transform: skewX(-20deg);
           transition: left .6s ease;
         }
@@ -125,16 +149,31 @@ export function LandingPage() {
         .border-beam::before {
           content: "";
           position: absolute; inset: -1px; border-radius: inherit; padding: 1px;
-          background: conic-gradient(from 0deg, transparent 0%, rgba(255,225,77,0.9) 8%, transparent 18%);
+          background: conic-gradient(from 0deg, transparent 0%, rgba(255,225,77,0.9) 8%, transparent 18%, transparent 50%, rgba(42,171,238,0.7) 58%, transparent 68%);
           -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
           -webkit-mask-composite: xor; mask-composite: exclude;
-          animation: spin 5s linear infinite;
-          opacity: 0.6;
+          animation: spin 6s linear infinite;
+          opacity: 0.7;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
+        .brand-mark {
+          transition: transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s ease;
+        }
+        .nav-brand:hover .brand-mark {
+          transform: rotate(-8deg) scale(1.08);
+          box-shadow: 0 0 26px rgba(255,225,77,0.7);
+        }
+
+        .link-underline { position: relative; }
+        .link-underline::after {
+          content: ""; position: absolute; left: 0; bottom: -2px; width: 0; height: 1px;
+          background: currentColor; transition: width .3s ease;
+        }
+        .link-underline:hover::after { width: 100%; }
+
         @media (prefers-reduced-motion: reduce) {
-          .blob, .blob-slow, .text-shimmer, .glow-btn, .fade-up, .marquee-track, .border-beam::before { animation: none !important; }
+          .blob, .blob-slow, .blob-slower, .text-shimmer, .glow-btn, .fade-up, .marquee-track, .border-beam::before, .float, .badge-spin, .gradient-x { animation: none !important; }
         }
       `}</style>
 
@@ -142,19 +181,19 @@ export function LandingPage() {
 
       {/* Ambient background */}
       <div className="fixed inset-0 -z-10 overflow-hidden">
-        <div className="blob absolute -top-40 -left-20 w-[42rem] h-[42rem] rounded-full bg-[#ffe14d]/[0.10] blur-[120px]" />
-        <div className="blob-slow absolute top-1/3 -right-32 w-[38rem] h-[38rem] rounded-full bg-[#2AABEE]/[0.10] blur-[120px]" />
-        <div className="blob absolute bottom-0 left-1/4 w-[30rem] h-[30rem] rounded-full bg-[#ff5f9e]/[0.06] blur-[130px]" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_40%,transparent_100%)]" />
+        <div className="blob absolute -top-40 -left-20 w-[46rem] h-[46rem] rounded-full bg-[#ffe14d]/[0.13] blur-[130px]" />
+        <div className="blob-slow absolute top-1/3 -right-32 w-[40rem] h-[40rem] rounded-full bg-[#2AABEE]/[0.13] blur-[130px]" />
+        <div className="blob-slower absolute bottom-0 left-1/4 w-[34rem] h-[34rem] rounded-full bg-[#ff5f9e]/[0.08] blur-[140px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_40%,transparent_100%)]" />
       </div>
 
       {/* Nav */}
       <nav className="sticky top-0 z-50 flex items-center justify-between px-5 md:px-10 h-16 glass">
-        <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 bg-[#ffe14d] text-black flex items-center justify-center rounded-[6px] shadow-[0_0_18px_rgba(255,225,77,0.55)]">
+        <div className="nav-brand flex items-center gap-2.5">
+          <div className="brand-mark w-7 h-7 bg-[#ffe14d] text-black flex items-center justify-center rounded-[6px] shadow-[0_0_18px_rgba(255,225,77,0.55)]">
             <Zap className="w-3.5 h-3.5" strokeWidth={2.5} />
           </div>
-          <span className="font-mono-ui text-sm font-bold tracking-tight">insta auto by shahroz malik</span>
+          <span className="font-mono-ui text-sm font-bold tracking-tight">INSTA AUTO BY SHAHROZ MALIK</span>
         </div>
         <div className="flex items-center gap-2">
           <a
@@ -195,14 +234,14 @@ export function LandingPage() {
           className="relative px-5 md:px-10 pt-16 md:pt-28 pb-16 max-w-6xl mx-auto"
         >
           <div
-            className="pointer-events-none absolute inset-0 -z-10 opacity-70 transition-[background] duration-300"
+            className="pointer-events-none absolute inset-0 -z-10 opacity-80 transition-[background] duration-300"
             style={{
-              background: `radial-gradient(600px circle at ${spot.x}% ${spot.y}%, rgba(255,225,77,0.08), transparent 60%)`,
+              background: `radial-gradient(650px circle at ${spot.x}% ${spot.y}%, rgba(255,225,77,0.1), transparent 60%)`,
             }}
           />
 
           <div className="fade-up" style={{ animationDelay: "0ms" }}>
-            <p className="font-mono-ui text-[11px] uppercase tracking-[0.25em] text-neutral-500 mb-6 flex items-center gap-2">
+            <p className="font-mono-ui text-[11px] uppercase tracking-[0.25em] text-neutral-500 mb-6 flex items-center gap-2 glass w-fit rounded-full px-3.5 py-1.5">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ffe14d] opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ffe14d]" />
@@ -225,7 +264,7 @@ export function LandingPage() {
             <div className="flex flex-wrap items-center gap-3">
               <button
                 onClick={handleLogin}
-                className="glow-btn btn-shine group flex items-center gap-2 bg-[#ffe14d] text-black font-mono-ui text-sm font-bold px-7 py-4 rounded-full hover:scale-[1.04] active:scale-[0.98] transition-transform"
+                className="glow-btn btn-shine group flex items-center gap-2 bg-[#ffe14d] text-black font-mono-ui text-sm font-bold px-7 py-4 rounded-full hover:scale-[1.05] active:scale-[0.97] transition-transform"
               >
                 Connect Instagram
                 <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform" />
@@ -271,7 +310,7 @@ export function LandingPage() {
             <h2 className="font-serif-display text-4xl md:text-5xl">
               Everything the paid tools do.
             </h2>
-            <span className="hidden md:block font-mono-ui text-xs text-neutral-500 border border-white/10 rounded-full px-3 py-1">$0/month</span>
+            <span className="hidden md:block font-mono-ui text-xs text-neutral-500 border border-white/10 rounded-full px-3 py-1 glass">$0/month</span>
           </div>
 
           <div className="grid md:grid-cols-3 gap-4">
@@ -297,7 +336,8 @@ export function LandingPage() {
         {/* Community strip */}
         <section className="px-5 md:px-10 pb-24 max-w-6xl mx-auto">
           <div className="border-beam relative rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 glass overflow-hidden">
-            <div className="pointer-events-none absolute -top-24 -right-24 w-64 h-64 rounded-full bg-[#ffe14d]/10 blur-[80px]" />
+            <div className="float pointer-events-none absolute -top-24 -right-24 w-64 h-64 rounded-full bg-[#ffe14d]/10 blur-[80px]" />
+            <div className="float pointer-events-none absolute -bottom-20 -left-16 w-56 h-56 rounded-full bg-[#2AABEE]/10 blur-[80px]" style={{ animationDelay: "1.5s" }} />
             <div className="relative">
               <h3 className="font-serif-display text-3xl md:text-4xl mb-2">Built in the open.</h3>
               <p className="text-neutral-500 text-sm max-w-md">
@@ -308,19 +348,19 @@ export function LandingPage() {
             <div className="relative flex flex-wrap items-center gap-3">
               <a
                 href={TELEGRAM_URL} target="_blank" rel="noreferrer"
-                className="btn-shine flex items-center gap-2 bg-[#2AABEE] text-white font-mono-ui text-xs font-bold px-5 py-3 rounded-full hover:brightness-110 transition-all hover:shadow-[0_0_24px_rgba(42,171,238,0.45)]"
+                className="btn-shine flex items-center gap-2 bg-[#2AABEE] text-white font-mono-ui text-xs font-bold px-5 py-3 rounded-full hover:brightness-110 hover:scale-105 transition-all hover:shadow-[0_0_24px_rgba(42,171,238,0.45)]"
               >
                 <Send className="w-3.5 h-3.5" /> Join Telegram
               </a>
               <a
                 href={YOUTUBE_URL} target="_blank" rel="noreferrer"
-                className="flex items-center gap-2 border border-white/15 text-neutral-300 font-mono-ui text-xs font-bold px-5 py-3 rounded-full hover:border-[#ff4d4d]/50 transition-all hover:shadow-[0_0_20px_rgba(255,77,77,0.25)]"
+                className="flex items-center gap-2 border border-white/15 text-neutral-300 font-mono-ui text-xs font-bold px-5 py-3 rounded-full hover:border-[#ff4d4d]/50 hover:scale-105 transition-all hover:shadow-[0_0_20px_rgba(255,77,77,0.25)]"
               >
                 <Youtube className="w-3.5 h-3.5 text-[#ff4d4d]" /> Subscribe on YouTube
               </a>
               <a
                 href={INSTAGRAM_URL} target="_blank" rel="noreferrer"
-                className="flex items-center gap-2 border border-white/15 text-neutral-300 font-mono-ui text-xs font-bold px-5 py-3 rounded-full hover:border-[#ffe14d]/50 transition-all hover:shadow-[0_0_20px_rgba(255,225,77,0.3)]"
+                className="flex items-center gap-2 border border-white/15 text-neutral-300 font-mono-ui text-xs font-bold px-5 py-3 rounded-full hover:border-[#ffe14d]/50 hover:scale-105 transition-all hover:shadow-[0_0_20px_rgba(255,225,77,0.3)]"
               >
                 <Instagram className="w-3.5 h-3.5 text-[#ffe14d]" /> Follow on Instagram
               </a>
@@ -332,12 +372,12 @@ export function LandingPage() {
       {/* Footer */}
       <footer className="relative border-t border-white/[0.08] px-5 md:px-10 py-8 flex flex-col md:flex-row items-center justify-between gap-4 glass">
         <span className="font-mono-ui text-[11px] text-neutral-600">
-          insta auto by shahroz malik — Instagram automation.
+          INSTA AUTO BY SHAHROZ MALIK — Instagram automation.
         </span>
         <div className="flex items-center gap-5 font-mono-ui text-[11px] text-neutral-500">
-          <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="hover:text-[#ffe14d] transition-colors">Instagram</a>
-          <a href={YOUTUBE_URL} target="_blank" rel="noreferrer" className="hover:text-[#ff4d4d] transition-colors">YouTube</a>
-          <a href={TELEGRAM_URL} target="_blank" rel="noreferrer" className="hover:text-[#2AABEE] transition-colors">Telegram support</a>
+          <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="link-underline hover:text-[#ffe14d] transition-colors">Instagram</a>
+          <a href={YOUTUBE_URL} target="_blank" rel="noreferrer" className="link-underline hover:text-[#ff4d4d] transition-colors">YouTube</a>
+          <a href={TELEGRAM_URL} target="_blank" rel="noreferrer" className="link-underline hover:text-[#2AABEE] transition-colors">Telegram support</a>
         </div>
       </footer>
     </div>
@@ -347,7 +387,7 @@ export function LandingPage() {
 function Feature({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) {
   return (
     <div className="card-hover glass rounded-2xl p-7">
-      <div className="w-9 h-9 rounded-lg border border-white/10 flex items-center justify-center text-neutral-500 group-hover:text-[#ffe14d] transition-colors mb-5">
+      <div className="icon-box w-9 h-9 rounded-lg border border-white/10 flex items-center justify-center text-neutral-500 mb-5">
         {icon}
       </div>
       <h3 className="font-mono-ui text-sm font-bold text-white mb-2">{title}</h3>
