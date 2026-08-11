@@ -173,23 +173,8 @@ async function verifyFollowStatus(igScopedId: string, pageAccessToken: string): 
     return { follows: null, error: 'transient' }
   }
 }
-    const data = await response.json()
-    const follows = data.is_user_follow_business === true
-    console.log(`[webhook] Follow check for ${igScopedId}: is_user_follow_business=${data.is_user_follow_business} => ${follows ? "FOLLOWS" : "NOT FOLLOWING"}`)
- return { follows }
-  } catch (error: any) {
-    console.error("[webhook] Error checking follow status:", error)
-    if (error?.name === "AbortError" || error?.name === "TimeoutError") {
-      return { follows: null, error: 'transient' }
-    }
-    return { follows: null, error: 'transient' }
-  }
-}
-    const data = await response.json()
-    const follows = data.is_user_follow_business === true
-    console.log(`[webhook] Follow check for ${igScopedId}: is_user_follow_business=${data.is_user_follow_business} => ${follows ? "FOLLOWS" : "NOT FOLLOWING"}`)
-    return { follows }
-  } catch (error: any) {
+   
+  catch (error: any) {
     console.error("[webhook] Error checking follow status:", error)
     // AbortSignal.timeout throws AbortError/TimeoutError -- both are transient
     if (error?.name === "AbortError" || error?.name === "TimeoutError") {
