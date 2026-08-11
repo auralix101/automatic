@@ -1,107 +1,147 @@
-<!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Insta Auto - AI-Powered Instagram Automation</title>
+<!DOCTYPE html><html class="dark" lang="en" data-stitch-anim-opacity="true" style="opacity: 0;"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Insta Auto by Shahroz - AI-Powered Instagram Automation</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@500;700;800&amp;family=Geist:wght@400;500;600&amp;family=JetBrains+Mono:wght@700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@500;700;800&amp;family=Geist:wght@400;500;600&amp;family=JetBrains+Mono:wght@700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "surface-container-lowest": "#0e0e10",
-                        "surface-card": "#111114",
-                        "primary-fixed-dim": "#a4d706",
-                        "surface-container-high": "#2a2a2c",
-                        "outline-variant": "#434935",
-                        "inverse-primary": "#4d6700",
-                        "secondary-container": "#422db2",
-                        "inverse-surface": "#e5e1e4",
-                        "tertiary-fixed": "#dce1ff",
-                        "on-tertiary-fixed": "#001551",
-                        "on-error-container": "#ffdad6",
-                        "on-primary-fixed": "#151f00",
-                        "on-tertiary-container": "#2256e7",
-                        "on-tertiary": "#002681",
-                        "tertiary": "#ffffff",
-                        "surface-dim": "#131315",
-                        "accent-pink": "#fd5949",
-                        "surface-bright": "#39393b",
-                        "on-secondary-fixed-variant": "#422db2",
-                        "surface-container-low": "#1c1b1d",
-                        "on-primary-container": "#526d00",
-                        "text-muted": "#737380",
-                        "on-surface-variant": "#c4c9ae",
-                        "on-secondary-container": "#b4abff",
-                        "secondary-fixed": "#e4dfff",
-                        "tertiary-container": "#dce1ff",
-                        "inverse-on-surface": "#313032",
-                        "error-container": "#93000a",
-                        "surface-container": "#201f21",
-                        "surface-tint": "#a4d706",
-                        "on-surface": "#e5e1e4",
-                        "on-error": "#690005",
-                        "surface-variant": "#353437",
-                        "border-glass": "rgba(244, 242, 236, 0.1)",
-                        "surface": "#131315",
-                        "on-tertiary-fixed-variant": "#0039b4",
-                        "background": "#131315",
-                        "error": "#ffb4ab",
-                        "secondary": "#c7bfff",
-                        "on-primary-fixed-variant": "#394d00",
-                        "primary": "#ffffff",
-                        "surface-container-highest": "#353437",
-                        "on-secondary": "#2a039d",
-                        "primary-fixed": "#bff434",
-                        "on-secondary-fixed": "#170065",
-                        "outline": "#8d937b",
-                        "secondary-fixed-dim": "#c7bfff",
-                        "tertiary-fixed-dim": "#b7c4ff",
-                        "primary-container": "#bff434",
-                        "on-primary": "#263500",
-                        "on-background": "#e5e1e4",
-                        "text-primary": "#f4f2ec"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "gutter": "24px",
-                        "margin-mobile": "20px",
-                        "unit": "4px",
-                        "margin-desktop": "40px",
-                        "section-gap": "96px"
-                    },
-                    "fontFamily": {
-                        "label-mono": ["JetBrains Mono"],
-                        "display-hero-mobile": ["Epilogue"],
-                        "display-hero": ["Epilogue"],
-                        "body-base": ["Geist"],
-                        "headline-lg": ["Epilogue"]
-                    },
-                    "fontSize": {
-                        "label-mono": ["11px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700" }],
-                        "display-hero-mobile": ["48px", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "500" }],
-                        "display-hero": ["83px", { "lineHeight": "0.98", "letterSpacing": "-0.02em", "fontWeight": "500" }],
-                        "body-base": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
-                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "500" }]
-                    }
-                }
-            }
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "error-container": "#93000a",
+                "accent-pink": "#fd5949",
+                "on-secondary-container": "#b4abff",
+                "on-primary-fixed": "#151f00",
+                "on-secondary": "#2a039d",
+                "tertiary-container": "#dce1ff",
+                "on-primary-fixed-variant": "#394d00",
+                "surface-bright": "#39393b",
+                "inverse-on-surface": "#313032",
+                "on-tertiary-fixed-variant": "#0039b4",
+                "surface-container": "#201f21",
+                "primary": "#ffffff",
+                "secondary-fixed": "#e4dfff",
+                "on-secondary-fixed-variant": "#422db2",
+                "surface-dim": "#131315",
+                "surface-container-lowest": "#0e0e10",
+                "on-tertiary": "#002681",
+                "on-surface-variant": "#c4c9ae",
+                "surface-tint": "#a4d706",
+                "on-error": "#690005",
+                "secondary-fixed-dim": "#c7bfff",
+                "on-secondary-fixed": "#170065",
+                "text-muted": "#737380",
+                "surface": "#131315",
+                "on-error-container": "#ffdad6",
+                "on-surface": "#e5e1e4",
+                "outline-variant": "#434935",
+                "surface-container-high": "#2a2a2c",
+                "inverse-primary": "#4d6700",
+                "primary-container": "#bff434",
+                "surface-card": "#111114",
+                "tertiary-fixed-dim": "#b7c4ff",
+                "on-primary": "#263500",
+                "on-tertiary-fixed": "#001551",
+                "on-tertiary-container": "#2256e7",
+                "surface-variant": "#353437",
+                "secondary": "#c7bfff",
+                "tertiary-fixed": "#dce1ff",
+                "background": "#131315",
+                "secondary-container": "#422db2",
+                "tertiary": "#ffffff",
+                "on-background": "#e5e1e4",
+                "primary-fixed": "#bff434",
+                "error": "#ffb4ab",
+                "primary-fixed-dim": "#a4d706",
+                "outline": "#8d937b",
+                "on-primary-container": "#526d00",
+                "surface-container-highest": "#353437",
+                "text-primary": "#f4f2ec",
+                "surface-container-low": "#1c1b1d",
+                "border-glass": "rgba(244, 242, 236, 0.1)",
+                "inverse-surface": "#e5e1e4"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "section-gap": "96px",
+                "unit": "4px",
+                "margin-desktop": "40px",
+                "margin-mobile": "20px",
+                "gutter": "20px"
+        },
+        "fontFamily": {
+                "body-base": [
+                        "Geist"
+                ],
+                "label-mono": [
+                        "JetBrains Mono"
+                ],
+                "headline-lg": [
+                        "Epilogue"
+                ],
+                "display-hero": [
+                        "Epilogue"
+                ],
+                "display-hero-mobile": [
+                        "Epilogue"
+                ]
+        },
+        "fontSize": {
+                "body-base": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-mono": [
+                        "11px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.08em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "fontWeight": "500"
+                        }
+                ],
+                "display-hero": [
+                        "83px",
+                        {
+                                "lineHeight": "0.98",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "display-hero-mobile": [
+                        "48px",
+                        {
+                                "lineHeight": "1.0",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "500"
+                        }
+                ]
         }
-    </script>
+},
+    },
+  }
+</script>
 <style>
         body {
             background-color: #0a0a0c;
             color: #f4f2ec;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.045'/%3E%3C/svg%3E");
             overflow-x: hidden;
         }
 
@@ -142,7 +182,7 @@
             transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
         }
         .kinetic-hover:hover {
-            transform: translateY(-4px);
+            transform: translateY(-4px) scale(1.02);
             box-shadow: 0 15px 30px -10px rgba(164, 215, 6, 0.3);
         }
 
@@ -226,16 +266,165 @@
         .animate-float {
             animation: float 6s ease-in-out infinite;
         }
+        
+        .animate-float-delayed {
+            animation: float 7s ease-in-out 1s infinite;
+        }
+        
+        .animate-float-slow {
+            animation: float 8s ease-in-out 2s infinite;
+        }
     </style>
 </head>
-<body class="antialiased font-body-base text-body-base selection:bg-primary-fixed selection:text-on-primary-fixed flex flex-col min-h-screen">
+<body class="antialiased font-body-base selection:bg-primary-fixed selection:text-on-primary-fixed flex flex-col min-h-screen relative bg-surface-dim text-on-surface">
+<!-- STITCH_SHADER_START:ANIMATION_34 class="fixed inset-0 w-full h-full -z-10" -->
+<div class="fixed inset-0 w-full h-full -z-10" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_34" style="display:block;width:100%;height:100%" width="1280" height="2367"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_34');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+varying vec2 v_texCoord;
+uniform float u_time;
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+
+// Simplex noise implementation
+vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
+
+float snoise(vec2 v) {
+  const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
+  vec2 i  = floor(v + dot(v, C.yy) );
+  vec2 x0 = v -   i + dot(i, C.xx);
+  vec2 i1;
+  i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+  vec4 x12 = x0.xyxy + C.xxzz;
+  x12.xy -= i1;
+  i = mod289(i);
+  vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 )) + i.x + vec3(0.0, i1.x, 1.0 ));
+  vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
+  m = m*m ;
+  m = m*m ;
+  vec3 x = 2.0 * fract(p * C.www) - 1.0;
+  vec3 h = abs(x) - 0.5;
+  vec3 ox = floor(x + 0.5);
+  vec3 a0 = x - ox;
+  m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );
+  vec3 g;
+  g.x  = a0.x  * x0.x  + h.x  * x0.y;
+  g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+  return 130.0 * dot(m, g);
+}
+
+void main() {
+    vec2 uv = v_texCoord;
+    vec2 mouseNorm = u_mouse / u_resolution;
+    
+    // Create a deep obsidian/carbon background
+    vec3 color = vec3(0.04, 0.04, 0.05);
+    
+    // Primary Kinetic Neon Lime color: #c9ff3f -> vec3(0.788, 1.0, 0.247)
+    vec3 primaryColor = vec3(0.788, 1.0, 0.247);
+    
+    // Dynamic noise layers for "High Budget" depth
+    float noise1 = snoise(uv * 2.0 + u_time * 0.1) * 0.5 + 0.5;
+    float noise2 = snoise(uv * 4.0 - u_time * 0.15 + mouseNorm * 0.5) * 0.5 + 0.5;
+    
+    // Animated glowing "veins"
+    float glow = pow(noise1 * noise2, 3.0);
+    color += primaryColor * glow * 0.15;
+    
+    // Vignette for premium focus
+    float vignette = 1.0 - length(uv - 0.5) * 1.2;
+    color *= clamp(vignette, 0.0, 1.0);
+    
+    // Subtle scanline effect
+    float scanline = sin(uv.y * u_resolution.y * 1.5) * 0.02;
+    color += scanline;
+
+    gl_FragColor = vec4(color, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_34 -->
 <!-- TopNavBar (Shared Component) -->
 <nav class="w-full sticky top-0 z-40 bg-surface/80 backdrop-blur-xl border-b border-white/10 shadow-[0_2px_4px_rgba(0,0,0,0.5),0_20px_40px_rgba(0,0,0,0.3)]">
 <div class="max-w-[1152px] mx-auto flex justify-between items-center px-gutter py-4 w-full">
 <div class="flex items-center gap-4">
 <a class="font-headline-lg text-headline-lg font-bold bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent flex items-center gap-2 active:scale-95 transition-transform" href="#">
 <span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">generating_tokens</span>
-                    Insta Auto
+                    Insta Auto by Shahroz
                 </a>
 </div>
 <div class="hidden md:flex items-center gap-8">
@@ -252,7 +441,7 @@
 <span class="material-symbols-outlined">help</span>
 </button>
 <div class="w-8 h-8 rounded-full bg-surface-variant border border-border-glass overflow-hidden ml-2">
-<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A macro shot of a sleek, dark obsidian user avatar placeholder with a subtle iridescent purple and green sheen, set against a pitch black background, symbolizing premium digital identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7zZIbV4mEXeJg_1fZ6N9svdLwoJvcpb39b7rrrCSuowNOih7xPqDkTFr7htqFUPLit7B6iyVGqwsORGCD90fAX_MHb4SJd9V6fdN-KngXGTe1kmM44C2lmvmO7v33vlexjZNW8VRakUoca5tkGfb1ZiuUBYjH6lLJQTbslxg_XrFyKimwansMyUCCACznDtlTc0jOE2LoXyhRxR8xdtB6cyV1ehk8DRh6CcSpNKesLbYArXdKw1_w"/>
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A macro shot of a sleek, dark obsidian user avatar placeholder with a subtle iridescent purple and green sheen, set against a pitch black background, symbolizing premium digital identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7zZIbV4mEXeJg_1fZ6N9svdLwoJvcpb39b7rrrCSuowNOih7xPqDkTFr7htqFUPLit7B6iyVGqwsORGCD90fAX_MHb4SJd9V6fdN-KngXGTe1kmM44C2lmvmO7v33vlexjZNW8VRakUoca5tkGfb1ZiuUBYjH6lLJQTbslxg_XrFyKimwansMyUCCACznDtlTc0jOE2LoXyhRxR8xdtB6cyV1ehk8DRh6CcSpNKesLbYArXdKw1_w">
 </div>
 </div>
 </div>
@@ -262,13 +451,13 @@
 <div class="ambient-glow-secondary top-[40%] right-[10%]"></div>
 <!-- HERO SECTION -->
 <section class="w-full max-w-[1152px] px-gutter pt-32 pb-section-gap relative flex flex-col lg:flex-row items-center justify-between gap-12 z-10">
-<div class="flex-1 flex flex-col items-start space-y-8 max-w-2xl">
+<div class="flex-1 flex flex-col items-start space-y-8 max-w-2xl animate-float">
 <div class="status-chip font-label-mono text-label-mono text-primary-fixed">
 <div class="pulse-dot"></div>
-<span>AI-Powered Instagram Automation</span>
+<span class="">AI-Powered Instagram Automation</span>
 </div>
 <h1 class="font-display-hero-mobile md:font-display-hero text-display-hero-mobile md:text-display-hero text-primary max-w-3xl leading-tight">
-                    Automate your <br/>
+                    Automate your <br>
 <span class="text-gradient-lime italic">Instagram Growth.</span>
 </h1>
 <p class="font-body-base text-body-base text-on-surface-variant max-w-xl text-lg">
@@ -288,7 +477,7 @@
 <!-- Central 3D Rotating AI Core Placeholder -->
 <div class="flex-1 relative w-full h-[500px] flex justify-center items-center">
 <!-- Abstract Representation of Holographic Core -->
-<div class="absolute inset-0 flex items-center justify-center animate-float">
+<div class="absolute inset-0 flex items-center justify-center animate-float-delayed">
 <div class="w-64 h-64 rounded-full border border-primary-fixed/30 absolute animate-[spin_10s_linear_infinite]" style="transform: rotateX(60deg) rotateY(20deg);"></div>
 <div class="w-80 h-80 rounded-full border border-secondary-container/40 absolute animate-[spin_15s_linear_infinite_reverse]" style="transform: rotateX(40deg) rotateY(70deg);"></div>
 <div class="w-48 h-48 bg-surface-card rounded-full shadow-[0_0_80px_rgba(164,215,6,0.2)] border border-primary-fixed/20 backdrop-blur-3xl flex items-center justify-center z-10">
@@ -300,24 +489,24 @@
 </section>
 <!-- FEATURES BENTO GRID -->
 <section class="w-full max-w-[1152px] px-gutter py-section-gap z-10" id="features">
-<div class="mb-16">
+<div class="mb-16 animate-float-slow">
 <h2 class="font-headline-lg text-headline-lg text-primary mb-4">Powerful Automation Features</h2>
 <p class="text-on-surface-variant max-w-2xl">Tactile, responsive modules designed for maximum displacement within the digital ecosystem.</p>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[300px]">
 <!-- Comment-to-DM (Spans 8 cols) -->
-<div class="glass-panel kinetic-hover rounded-2xl col-span-1 md:col-span-8 p-8 flex flex-col justify-between overflow-hidden relative group">
+<div class="glass-panel kinetic-hover rounded-2xl col-span-1 md:col-span-8 p-8 flex flex-col justify-between overflow-hidden relative group animate-float">
 <div class="absolute top-0 right-0 w-64 h-64 bg-secondary-container/20 blur-[80px] rounded-full translate-x-1/2 -translate-y-1/2 group-hover:bg-primary-fixed/20 transition-colors duration-500"></div>
 <div class="z-10">
-<div class="w-12 h-12 rounded-xl bg-surface/50 border border-border-glass flex items-center justify-center mb-6">
+<div class="w-12 h-12 rounded-xl bg-surface/50 border border-border-glass flex items-center justify-center mb-6 shadow-lg shadow-black/50">
 <span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">forum</span>
 </div>
 <h3 class="font-headline-lg text-[24px] text-primary mb-2">Auto Reply to Comments</h3>
 <p class="text-on-surface-variant max-w-md">Automatically reply to comments and send personalized direct messages to your audience.</p>
 </div>
 <div class="z-10 flex items-end justify-end">
-<div class="bg-surface-dim/80 backdrop-blur-md border border-border-glass rounded-lg p-4 flex items-center gap-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-xl">
-<img alt="User avatar" class="w-8 h-8 rounded-full object-cover" data-alt="A close up of a glossy dark glass UI notification card glowing with a subtle neon lime edge, floating in a deep black space, symbolizing a received direct message." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbSUGPXfIs3ZnTcp3tcfLZw8PyxxklZdkG_O7OG-lJAv_zE20aSMv94kKHvWCW7fCR5yyKdyG69OA6CELIySzHkLlccV3WPz8-LBoHMfYR4SoJ8M5ez6paldDMg58N35VmticL3vtMqDOrPGsVCKOZNMYLYdAjsKpvitUmSM3j-nKoCahORanFZTbnDUCnM7K5VhEDOU3XM4ZzlKWdzLEaSOeFv8uFv1AUusH7-FNsJNMngdzNbuqh"/>
+<div class="bg-surface-dim/80 backdrop-blur-md border border-border-glass rounded-lg p-4 flex items-center gap-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+<img alt="User avatar" class="w-8 h-8 rounded-full object-cover" data-alt="A close up of a glossy dark glass UI notification card glowing with a subtle neon lime edge, floating in a deep black space, symbolizing a received direct message." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbSUGPXfIs3ZnTcp3tcfLZw8PyxxklZdkG_O7OG-lJAv_zE20aSMv94kKHvWCW7fCR5yyKdyG69OA6CELIySzHkLlccV3WPz8-LBoHMfYR4SoJ8M5ez6paldDMg58N35VmticL3vtMqDOrPGsVCKOZNMYLYdAjsKpvitUmSM3j-nKoCahORanFZTbnDUCnM7K5VhEDOU3XM4ZzlKWdzLEaSOeFv8uFv1AUusH7-FNsJNMngdzNbuqh">
 <div>
 <p class="text-sm text-primary font-medium">"Send me the link"</p>
 <p class="text-xs text-primary-fixed">Automated Reply Sent</p>
@@ -326,9 +515,9 @@
 </div>
 </div>
 <!-- AI Humanizer (Spans 4 cols) -->
-<div class="glass-panel kinetic-hover rounded-2xl col-span-1 md:col-span-4 p-8 flex flex-col justify-between group">
+<div class="glass-panel kinetic-hover rounded-2xl col-span-1 md:col-span-4 p-8 flex flex-col justify-between group animate-float-delayed">
 <div class="z-10">
-<div class="w-12 h-12 rounded-xl bg-surface/50 border border-border-glass flex items-center justify-center mb-6">
+<div class="w-12 h-12 rounded-xl bg-surface/50 border border-border-glass flex items-center justify-center mb-6 shadow-lg shadow-black/50">
 <span class="material-symbols-outlined text-secondary-fixed" style="font-variation-settings: 'FILL' 1;">psychology</span>
 </div>
 <h3 class="font-headline-lg text-[24px] text-primary mb-2">Self-Hosted</h3>
@@ -340,31 +529,31 @@
 </div>
 </div>
 <!-- Metrics (Spans 4 cols) -->
-<div class="glass-panel kinetic-hover rounded-2xl col-span-1 md:col-span-4 p-8 flex flex-col justify-center items-center text-center">
-<span class="material-symbols-outlined text-4xl text-primary-fixed mb-4">monitoring</span>
+<div class="glass-panel kinetic-hover rounded-2xl col-span-1 md:col-span-4 p-8 flex flex-col justify-center items-center text-center animate-float-slow">
+<span class="material-symbols-outlined text-4xl text-primary-fixed mb-4 drop-shadow-[0_0_15px_rgba(164,215,6,0.5)]">monitoring</span>
 <h4 class="font-display-hero-mobile text-[48px] text-primary mb-2">2.4M</h4>
 <p class="font-label-mono text-label-mono text-on-surface-variant tracking-widest uppercase">Comments Processed</p>
 </div>
 <!-- Flow Builder (Spans 8 cols) -->
-<div class="glass-panel kinetic-hover rounded-2xl col-span-1 md:col-span-8 p-8 flex flex-col md:flex-row items-center gap-8 relative overflow-hidden group">
+<div class="glass-panel kinetic-hover rounded-2xl col-span-1 md:col-span-8 p-8 flex flex-col md:flex-row items-center gap-8 relative overflow-hidden group animate-float">
 <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 <div class="flex-1 z-10">
 <h3 class="font-headline-lg text-[24px] text-primary mb-2">Visual Automation Flow</h3>
 <p class="text-on-surface-variant mb-6">Build complex Instagram automation pathways using a tactile, drag-and-drop node interface.</p>
-<button class="font-label-mono text-label-mono text-primary hover:text-primary-fixed transition-colors flex items-center gap-2 border border-border-glass rounded-full px-6 py-2 bg-surface/50 hover:bg-surface-container-high">
+<button class="font-label-mono text-label-mono text-primary hover:text-primary-fixed transition-colors flex items-center gap-2 border border-border-glass rounded-full px-6 py-2 bg-surface/50 hover:bg-surface-container-high shadow-lg">
                             Open Matrix
                         </button>
 </div>
 <div class="flex-1 z-10 w-full h-full relative min-h-[150px]">
 <!-- Abstract Node Representation -->
-<div class="absolute right-10 top-1/2 -translate-y-1/2 flex items-center gap-4">
-<div class="w-12 h-12 rounded-lg bg-surface-card border border-primary-fixed/50 flex items-center justify-center shadow-[0_0_15px_rgba(164,215,6,0.2)]">
+<div class="absolute right-10 top-1/2 -translate-y-1/2 flex items-center gap-4 group-hover:scale-105 transition-transform duration-500">
+<div class="w-12 h-12 rounded-lg bg-surface-card border border-primary-fixed/50 flex items-center justify-center shadow-[0_0_15px_rgba(164,215,6,0.3)]">
 <span class="material-symbols-outlined text-primary-fixed">input</span>
 </div>
 <div class="h-0.5 w-12 bg-primary-fixed/30 relative">
 <div class="absolute inset-0 bg-primary-fixed blur-[2px] opacity-50"></div>
 </div>
-<div class="w-12 h-12 rounded-lg bg-secondary-container/20 border border-secondary-fixed/50 flex items-center justify-center">
+<div class="w-12 h-12 rounded-lg bg-secondary-container/20 border border-secondary-fixed/50 flex items-center justify-center shadow-[0_0_15px_rgba(199,191,255,0.2)]">
 <span class="material-symbols-outlined text-secondary-fixed">hub</span>
 </div>
 </div>
@@ -374,16 +563,16 @@
 </section>
 <!-- CTA SECTION -->
 <section class="w-full max-w-[1152px] px-gutter py-section-gap z-10">
-<div class="glass-panel rounded-3xl p-16 flex flex-col items-center text-center relative overflow-hidden">
-<div class="absolute inset-0 bg-gradient-to-b from-primary-fixed/5 to-transparent pointer-events-none"></div>
-<span class="material-symbols-outlined text-6xl text-primary-fixed mb-6" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
-<h2 class="font-display-hero-mobile md:font-display-hero text-[48px] md:text-[64px] text-primary mb-6">
+<div class="glass-panel rounded-3xl p-16 flex flex-col items-center text-center relative overflow-hidden animate-float-delayed shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+<div class="absolute inset-0 bg-gradient-to-b from-primary-fixed/10 to-transparent pointer-events-none"></div>
+<span class="material-symbols-outlined text-6xl text-primary-fixed mb-6 drop-shadow-[0_0_20px_rgba(164,215,6,0.4)]" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+<h2 class="font-display-hero-mobile md:font-display-hero text-[48px] md:text-[64px] text-primary mb-6 relative z-10">
                     Ready to automate your <span class="text-gradient-lime">Instagram</span>?
                 </h2>
-<p class="text-on-surface-variant max-w-xl mx-auto mb-10 text-lg">
+<p class="text-on-surface-variant max-w-xl mx-auto mb-10 text-lg relative z-10">
                     Deploy your first Instagram automation flow in under 60 seconds. High-performance utility awaits.
                 </p>
-<button class="btn-kinetic px-8 py-4 text-[13px]">
+<button class="btn-kinetic px-8 py-4 text-[13px] relative z-10">
                     Get Started
                     <span class="material-symbols-outlined">terminal</span>
 </button>
@@ -391,10 +580,10 @@
 </section>
 </main>
 <!-- Simple Footer -->
-<footer class="w-full border-t border-border-glass py-8 z-10 bg-surface/50 backdrop-blur-lg">
+<footer class="w-full border-t border-border-glass py-8 z-10 bg-surface/50 backdrop-blur-lg mt-auto">
 <div class="max-w-[1152px] mx-auto px-gutter flex flex-col md:flex-row justify-between items-center gap-4">
 <div class="font-label-mono text-label-mono text-text-muted">
-                © 2024 Insta Auto. All rights reserved.
+                © 2024 Insta Auto by Shahroz. All rights reserved.
             </div>
 <div class="flex gap-6">
 <a class="font-label-mono text-label-mono text-text-muted hover:text-primary transition-colors" href="#">Privacy</a>
@@ -403,4 +592,6 @@
 </div>
 </div>
 </footer>
+
+
 </body></html>
