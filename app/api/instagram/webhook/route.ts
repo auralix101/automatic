@@ -151,23 +151,28 @@ async function verifyFollowStatus(igScopedId: string, pageAccessToken: string): 
     if (!response.ok) {
       const errorText = await response.text()
       console.error(`[webhook] Follow status check failed: ${response.status} ${errorText}`)
-
-      // Instagram returns IGApiException code 230 ("User consent is required to
-      // access user profile") with an HTTP 500 for users who haven't consented /
-      // have no prior interaction with the business. Treat this as an AUTH failure
-      // (fail closed → send follow gate) instead of transient (fail open).
       let igErrorCode: number | undefined
       try {
         igErrorCode = JSON.parse(errorText)?.error?.code
       } catch {}
-
       const isConsentError = igErrorCode === 230 || /user consent/i.test(errorText)
-
       if (response.status === 401 || response.status === 403 || isConsentError) {
         return { follows: null, error: 'auth' }
       }
       return { follows: null, error: 'transient' }
     }
+    const data = await response.json()
+    const follows = data.is_user_follow_business === true
+    console.log(`[webhook] Follow check for ${igScopedId}: is_user_follow_business=${data.is_user_follow_business} => ${follows ? "FOLLOWS" : "NOT FOLLOWING"}`)
+    return { follows }
+  } catch (error: any) {
+    console.error("[webhook] Error checking follow status:", error)
+    if (error?.name === "AbortError" || error?.name === "TimeoutError") {
+      return { follows: null, error: 'transient' }
+    }
+    return { follows: null, error: 'transient' }
+  }
+}
     const data = await response.json()
     const follows = data.is_user_follow_business === true
     console.log(`[webhook] Follow check for ${igScopedId}: is_user_follow_business=${data.is_user_follow_business} => ${follows ? "FOLLOWS" : "NOT FOLLOWING"}`)
