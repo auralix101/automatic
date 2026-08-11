@@ -176,7 +176,7 @@ async function verifyFollowStatus(igScopedId: string, pageAccessToken: string): 
     const data = await response.json()
     const follows = data.is_user_follow_business === true
     console.log(`[webhook] Follow check for ${igScopedId}: is_user_follow_business=${data.is_user_follow_business} => ${follows ? "FOLLOWS" : "NOT FOLLOWING"}`)
-    return { follows, error: undefined }
+ return { follows }
   } catch (error: any) {
     console.error("[webhook] Error checking follow status:", error)
     if (error?.name === "AbortError" || error?.name === "TimeoutError") {
