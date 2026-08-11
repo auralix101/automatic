@@ -1,437 +1,406 @@
-"use client"
+<!DOCTYPE html>
 
-import { useEffect, useRef, useState } from "react"
-import { useRouter } from "next/navigation"
-import {
-  Zap, MessageCircle, ArrowUpRight,
-  AtSign, Brain, Inbox, Lock, Terminal, CheckCheck,
-} from "lucide-react"
-
-const TELEGRAM_URL = "https://t.me/Auralix_studio"
-const INSTAGRAM_URL = "https://www.instagram.com/shahroz_ai/"
-const YOUTUBE_URL = "https://youtube.com/@auralixstudio?si=Qu_T0fePl9WLf1vj"
-
-function InstagramLogo({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="none">
-      <defs>
-        <radialGradient id="ig-grad" cx="30%" cy="107%" r="150%">
-          <stop offset="0%" stopColor="#fdf497" />
-          <stop offset="5%" stopColor="#fdf497" />
-          <stop offset="45%" stopColor="#fd5949" />
-          <stop offset="60%" stopColor="#d6249f" />
-          <stop offset="90%" stopColor="#285AEB" />
-        </radialGradient>
-      </defs>
-      <rect x="2" y="2" width="20" height="20" rx="6" fill="url(#ig-grad)" />
-      <rect x="2" y="2" width="20" height="20" rx="6" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="0.5" />
-      <circle cx="12" cy="12" r="4.2" fill="none" stroke="#fff" strokeWidth="1.6" />
-      <circle cx="17.15" cy="6.85" r="1.15" fill="#fff" />
-    </svg>
-  )
-}
-
-function YoutubeLogo({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="none">
-      <path d="M23 12s0-3.4-.44-5.03a2.9 2.9 0 0 0-2.03-2.05C18.9 4.5 12 4.5 12 4.5s-6.9 0-8.53.42A2.9 2.9 0 0 0 1.44 6.97C1 8.6 1 12 1 12s0 3.4.44 5.03a2.9 2.9 0 0 0 2.03 2.05C5.1 19.5 12 19.5 12 19.5s6.9 0 8.53-.42a2.9 2.9 0 0 0 2.03-2.05C23 15.4 23 12 23 12Z" fill="#FF0000" />
-      <path d="M9.75 15.02V8.98L15.5 12l-5.75 3.02Z" fill="#fff" />
-    </svg>
-  )
-}
-
-function TelegramLogo({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="none">
-      <circle cx="12" cy="12" r="10" fill="#2AABEE" />
-      <circle cx="12" cy="12" r="10" fill="url(#tg-shade)" />
-      <defs>
-        <linearGradient id="tg-shade" x1="12" y1="2" x2="12" y2="22" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#37AEE2" />
-          <stop offset="1" stopColor="#1E96C8" />
-        </linearGradient>
-      </defs>
-      <path d="M5.6 11.86l11.05-4.26c.51-.2.96.12.79.9l-1.88 8.86c-.14.63-.51.78-1.03.49l-2.85-2.1-1.37 1.32c-.15.15-.28.28-.57.28l.2-2.88 5.24-4.74c.23-.2-.05-.32-.35-.12l-6.48 4.08-2.79-.87c-.6-.19-.61-.6.13-.9Z" fill="#fff" />
-    </svg>
-  )
-}
-
-export function LandingPage() {
-  const router = useRouter()
-  const heroRef = useRef<HTMLDivElement>(null)
-  const [spot, setSpot] = useState({ x: 50, y: 30 })
-  const [dmStep, setDmStep] = useState(0)
-
-  useEffect(() => {
-    const el = heroRef.current
-    if (!el) return
-    const onMove = (e: MouseEvent) => {
-      const r = el.getBoundingClientRect()
-      setSpot({
-        x: ((e.clientX - r.left) / r.width) * 100,
-        y: ((e.clientY - r.top) / r.height) * 100,
-      })
-    }
-    el.addEventListener("mousemove", onMove)
-    return () => el.removeEventListener("mousemove", onMove)
-  }, [])
-
-  useEffect(() => {
-    const id = setInterval(() => setDmStep((s) => (s + 1) % 5), 1800)
-    return () => clearInterval(id)
-  }, [])
-
-  const handleLogin = () => {
-    // Instagram Business Login (Instagram API with Instagram Login). client_id must be the
-    // Instagram app ID from the Instagram product page, not the parent Meta app ID.
-    window.location.href = `https://www.instagram.com/oauth/authorize?enable_fb_login=0&force_authentication=1&client_id=${process.env.NEXT_PUBLIC_INSTAGRAM_APP_ID}&redirect_uri=${process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI}&response_type=code&scope=instagram_business_basic%2Cinstagram_business_manage_messages%2Cinstagram_business_manage_comments`
-  }
-
-  const handleTestLogin = () => {
-    localStorage.setItem("ig_user_id", "9999999999")
-    localStorage.setItem("ig_username", "test_creator")
-    router.push("/dashboard")
-  }
-
-  return (
-    <div className="min-h-screen bg-[#0a0a0c] text-[#f4f2ec] selection:bg-[#c9ff3f] selection:text-black overflow-x-hidden antialiased relative">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Space+Mono:wght@400;700&display=swap');
-        .font-display { font-family: 'Fraunces', Georgia, serif; font-optical-sizing: auto; }
-        .font-mono-ui { font-family: 'Space Mono', ui-monospace, monospace; }
-
-        :root {
-          --lime: #c9ff3f;
-          --violet: #8b7cff;
-          --ink: #0a0a0c;
-          --paper: #f4f2ec;
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Insta Auto - AI-Powered Instagram Automation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@500;700;800&amp;family=Geist:wght@400;500;600&amp;family=JetBrains+Mono:wght@700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#0e0e10",
+                        "surface-card": "#111114",
+                        "primary-fixed-dim": "#a4d706",
+                        "surface-container-high": "#2a2a2c",
+                        "outline-variant": "#434935",
+                        "inverse-primary": "#4d6700",
+                        "secondary-container": "#422db2",
+                        "inverse-surface": "#e5e1e4",
+                        "tertiary-fixed": "#dce1ff",
+                        "on-tertiary-fixed": "#001551",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-fixed": "#151f00",
+                        "on-tertiary-container": "#2256e7",
+                        "on-tertiary": "#002681",
+                        "tertiary": "#ffffff",
+                        "surface-dim": "#131315",
+                        "accent-pink": "#fd5949",
+                        "surface-bright": "#39393b",
+                        "on-secondary-fixed-variant": "#422db2",
+                        "surface-container-low": "#1c1b1d",
+                        "on-primary-container": "#526d00",
+                        "text-muted": "#737380",
+                        "on-surface-variant": "#c4c9ae",
+                        "on-secondary-container": "#b4abff",
+                        "secondary-fixed": "#e4dfff",
+                        "tertiary-container": "#dce1ff",
+                        "inverse-on-surface": "#313032",
+                        "error-container": "#93000a",
+                        "surface-container": "#201f21",
+                        "surface-tint": "#a4d706",
+                        "on-surface": "#e5e1e4",
+                        "on-error": "#690005",
+                        "surface-variant": "#353437",
+                        "border-glass": "rgba(244, 242, 236, 0.1)",
+                        "surface": "#131315",
+                        "on-tertiary-fixed-variant": "#0039b4",
+                        "background": "#131315",
+                        "error": "#ffb4ab",
+                        "secondary": "#c7bfff",
+                        "on-primary-fixed-variant": "#394d00",
+                        "primary": "#ffffff",
+                        "surface-container-highest": "#353437",
+                        "on-secondary": "#2a039d",
+                        "primary-fixed": "#bff434",
+                        "on-secondary-fixed": "#170065",
+                        "outline": "#8d937b",
+                        "secondary-fixed-dim": "#c7bfff",
+                        "tertiary-fixed-dim": "#b7c4ff",
+                        "primary-container": "#bff434",
+                        "on-primary": "#263500",
+                        "on-background": "#e5e1e4",
+                        "text-primary": "#f4f2ec"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-mobile": "20px",
+                        "unit": "4px",
+                        "margin-desktop": "40px",
+                        "section-gap": "96px"
+                    },
+                    "fontFamily": {
+                        "label-mono": ["JetBrains Mono"],
+                        "display-hero-mobile": ["Epilogue"],
+                        "display-hero": ["Epilogue"],
+                        "body-base": ["Geist"],
+                        "headline-lg": ["Epilogue"]
+                    },
+                    "fontSize": {
+                        "label-mono": ["11px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+                        "display-hero-mobile": ["48px", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+                        "display-hero": ["83px", { "lineHeight": "0.98", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+                        "body-base": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #0a0a0c;
+            color: #f4f2ec;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.045'/%3E%3C/svg%3E");
+            overflow-x: hidden;
         }
 
-        @keyframes fade-up { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-up { animation: fade-up 1s cubic-bezier(.16,.8,.24,1) both; }
-
-        @keyframes drift {
-          0%, 100% { transform: translate(0,0) scale(1); }
-          50% { transform: translate(6%, -5%) scale(1.1); }
+        /* Ambient Glows */
+        .ambient-glow-primary {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(164, 215, 6, 0.15) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            filter: blur(150px);
+            z-index: -1;
+            pointer-events: none;
         }
-        .blob { animation: drift 20s ease-in-out infinite; }
-        .blob-rev { animation: drift 28s ease-in-out infinite reverse; }
-
-        @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-        .ticker-track { animation: ticker 34s linear infinite; }
-
-        @keyframes blink-caret { 50% { opacity: 0; } }
-        .caret { animation: blink-caret 1s step-end infinite; }
-
-        @keyframes pop-in {
-          from { opacity: 0; transform: translateY(10px) scale(.92); }
-          to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        .pop-in { animation: pop-in .45s cubic-bezier(.2,.8,.3,1) both; }
-
-        @keyframes glow-pulse {
-          0%, 100% { box-shadow: 0 0 0 0 rgba(201,255,63,0.5); }
-          50% { box-shadow: 0 0 0 8px rgba(201,255,63,0); }
-        }
-        .glow-pulse { animation: glow-pulse 2.2s ease-out infinite; }
-
-        .grain::before {
-          content: ""; position: fixed; inset: 0; z-index: 5; pointer-events: none; opacity: .045; mix-blend-mode: overlay;
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+        
+        .ambient-glow-secondary {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(199, 191, 255, 0.1) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            filter: blur(150px);
+            z-index: -1;
+            pointer-events: none;
         }
 
-        .panel {
-          background: rgba(244,242,236,0.03);
-          border: 1px solid rgba(244,242,236,0.1);
-        }
-        .panel-solid { background: #111114; border: 1px solid rgba(244,242,236,0.1); }
-
-        .lime-btn {
-          background: var(--lime);
-          color: #0a0a0c;
-          transition: transform .35s cubic-bezier(.2,.8,.3,1), box-shadow .35s ease;
-        }
-        .lime-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 40px -10px rgba(201,255,63,0.55); }
-        .lime-btn:active { transform: translateY(0); }
-
-        .bento-item {
-          transition: border-color .4s ease, background .4s ease, transform .4s cubic-bezier(.2,.8,.3,1);
-        }
-        .bento-item:hover {
-          border-color: rgba(201,255,63,0.35);
-          background: rgba(201,255,63,0.045);
-          transform: translateY(-3px);
+        /* Glass Surface */
+        .glass-panel {
+            background: rgba(17, 17, 20, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(244, 242, 236, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.15); /* Light source hit */
         }
 
-        .num-tab { transition: color .3s ease, border-color .3s ease; }
-
-        .rule { background: linear-gradient(90deg, transparent, rgba(244,242,236,0.18), transparent); }
-
-        .chip {
-          transition: border-color .3s ease, color .3s ease, transform .3s ease;
+        /* Kinetic Hover & 3D Lift */
+        .kinetic-hover {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
         }
-        .chip:hover { border-color: rgba(201,255,63,0.5); color: var(--lime); transform: translateY(-1px); }
-
-        .logo-glow { transition: filter .35s ease, transform .35s ease; }
-        .logo-glow-ig:hover { filter: drop-shadow(0 0 10px rgba(214,36,159,0.85)) drop-shadow(0 0 18px rgba(253,88,73,0.6)); transform: scale(1.12); }
-        .logo-glow-yt:hover { filter: drop-shadow(0 0 12px rgba(255,0,0,0.75)); transform: scale(1.12); }
-        .logo-glow-tg:hover { filter: drop-shadow(0 0 12px rgba(42,171,238,0.8)); transform: scale(1.12); }
-        .chip-icon:hover .logo-glow { filter: drop-shadow(0 0 10px currentColor); }
-
-        @media (prefers-reduced-motion: reduce) {
-          .blob, .blob-rev, .ticker-track, .fade-up, .caret, .pop-in, .glow-pulse { animation: none !important; }
+        .kinetic-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px -10px rgba(164, 215, 6, 0.3);
         }
-      `}</style>
 
-      <div className="grain" />
+        /* Primary Button */
+        .btn-kinetic {
+            background-color: #a4d706;
+            color: #151f00;
+            border-radius: 9999px;
+            padding: 12px 32px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+            box-shadow: 0 4px 14px rgba(164, 215, 6, 0.2);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-kinetic:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 24px rgba(164, 215, 6, 0.4);
+        }
+        .btn-kinetic:active {
+            transform: scale(0.95);
+        }
 
-      {/* Ambient */}
-      <div className="fixed inset-0 -z-10 overflow-hidden">
-        <div className="blob absolute -top-56 left-1/3 w-[50rem] h-[50rem] rounded-full bg-[#c9ff3f]/[0.07] blur-[150px]" />
-        <div className="blob-rev absolute bottom-0 -left-40 w-[40rem] h-[40rem] rounded-full bg-[#8b7cff]/[0.10] blur-[140px]" />
-      </div>
+        /* Typography Utilities */
+        .text-gradient-lime {
+            background: linear-gradient(135deg, #bff434 0%, #a4d706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
 
-      {/* Nav */}
-      <nav className="sticky top-0 z-50 flex items-center justify-between px-5 md:px-10 h-16 border-b border-white/[0.07] bg-[#0a0a0c]/80 backdrop-blur-xl">
-        <div className="flex items-center gap-2">
-          <div className="w-6 h-6 bg-[var(--lime)] flex items-center justify-center rounded-[4px]">
-            <Zap className="w-3.5 h-3.5 text-black" strokeWidth={2.5} />
-          </div>
-          <span className="font-mono-ui text-[11px] font-bold tracking-[0.08em]">INSTA AUTO BY SHAHROZ MALIK</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer"
-            className="hidden sm:flex items-center gap-1.5 font-mono-ui text-[11px] text-neutral-400 border border-white/10 rounded-full px-3 py-1.5">
-            <InstagramLogo className="logo-glow logo-glow-ig w-3.5 h-3.5" /> IG
-          </a>
-          <a href={YOUTUBE_URL} target="_blank" rel="noreferrer"
-            className="hidden sm:flex items-center gap-1.5 font-mono-ui text-[11px] text-neutral-400 border border-white/10 rounded-full px-3 py-1.5">
-            <YoutubeLogo className="logo-glow logo-glow-yt w-3.5 h-3.5" /> YT
-          </a>
-          {process.env.NODE_ENV === "development" && (
-            <button onClick={handleTestLogin}
-              className="font-mono-ui text-[11px] font-bold text-[var(--lime)] border border-[var(--lime)]/30 rounded-full px-3.5 py-1.5 hover:bg-[var(--lime)]/10 transition-colors">
-              Dev Login
-            </button>
-          )}
-          <button onClick={handleLogin}
-            className="lime-btn font-mono-ui text-[11px] font-bold rounded-full px-4 py-1.5">
-            Log in
-          </button>
-        </div>
-      </nav>
+        /* Pulse Indicator */
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #a4d706;
+            position: relative;
+        }
+        .pulse-dot::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border-radius: 50%;
+            border: 2px solid #a4d706;
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+            opacity: 0;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.5); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
 
-      {/* Hero */}
-      <main className="relative z-10">
-        <section ref={heroRef} className="relative px-5 md:px-10 pt-14 md:pt-24 pb-20 max-w-6xl mx-auto grid md:grid-cols-[1.15fr_0.85fr] gap-12 items-center">
-          <div
-            className="pointer-events-none absolute inset-0 -z-10 opacity-70"
-            style={{ background: `radial-gradient(560px circle at ${spot.x}% ${spot.y}%, rgba(201,255,63,0.06), transparent 60%)` }}
-          />
+        /* Status Chip */
+        .status-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 12px;
+            background: rgba(164, 215, 6, 0.1);
+            border: 1px solid rgba(164, 215, 6, 0.2);
+            border-radius: 9999px;
+        }
 
-          <div>
-            <div className="fade-up flex items-center gap-2 mb-7" style={{ animationDelay: "0ms" }}>
-              <span className="font-mono-ui text-[10px] tracking-[0.2em] uppercase text-neutral-500 border border-white/10 rounded-full px-3 py-1">
-                Self-hosted
-              </span>
-              <span className="font-mono-ui text-[10px] tracking-[0.2em] uppercase text-neutral-500 border border-white/10 rounded-full px-3 py-1">
-                $0/mo
-              </span>
-              <span className="font-mono-ui text-[10px] tracking-[0.2em] uppercase text-[var(--lime)] border border-[var(--lime)]/30 rounded-full px-3 py-1">
-                Open source
-              </span>
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="antialiased font-body-base text-body-base selection:bg-primary-fixed selection:text-on-primary-fixed flex flex-col min-h-screen">
+<!-- TopNavBar (Shared Component) -->
+<nav class="w-full sticky top-0 z-40 bg-surface/80 backdrop-blur-xl border-b border-white/10 shadow-[0_2px_4px_rgba(0,0,0,0.5),0_20px_40px_rgba(0,0,0,0.3)]">
+<div class="max-w-[1152px] mx-auto flex justify-between items-center px-gutter py-4 w-full">
+<div class="flex items-center gap-4">
+<a class="font-headline-lg text-headline-lg font-bold bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent flex items-center gap-2 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">generating_tokens</span>
+                    Insta Auto
+                </a>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<!-- Navigation Tabs (Simulated from SideNav intent) -->
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-colors duration-200" href="#features">Features</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-colors duration-200" href="#how-it-works">Engine</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-primary transition-colors duration-200" href="#pricing">Pricing</a>
+</div>
+<div class="flex items-center gap-4">
+<button aria-label="Notifications" class="text-on-surface-variant hover:text-primary transition-colors duration-200 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button aria-label="Help" class="text-on-surface-variant hover:text-primary transition-colors duration-200 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-variant border border-border-glass overflow-hidden ml-2">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A macro shot of a sleek, dark obsidian user avatar placeholder with a subtle iridescent purple and green sheen, set against a pitch black background, symbolizing premium digital identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7zZIbV4mEXeJg_1fZ6N9svdLwoJvcpb39b7rrrCSuowNOih7xPqDkTFr7htqFUPLit7B6iyVGqwsORGCD90fAX_MHb4SJd9V6fdN-KngXGTe1kmM44C2lmvmO7v33vlexjZNW8VRakUoca5tkGfb1ZiuUBYjH6lLJQTbslxg_XrFyKimwansMyUCCACznDtlTc0jOE2LoXyhRxR8xdtB6cyV1ehk8DRh6CcSpNKesLbYArXdKw1_w"/>
+</div>
+</div>
+</div>
+</nav>
+<main class="flex-grow flex flex-col items-center relative">
+<div class="ambient-glow-primary top-[10%] left-[20%]"></div>
+<div class="ambient-glow-secondary top-[40%] right-[10%]"></div>
+<!-- HERO SECTION -->
+<section class="w-full max-w-[1152px] px-gutter pt-32 pb-section-gap relative flex flex-col lg:flex-row items-center justify-between gap-12 z-10">
+<div class="flex-1 flex flex-col items-start space-y-8 max-w-2xl">
+<div class="status-chip font-label-mono text-label-mono text-primary-fixed">
+<div class="pulse-dot"></div>
+<span>AI-Powered Instagram Automation</span>
+</div>
+<h1 class="font-display-hero-mobile md:font-display-hero text-display-hero-mobile md:text-display-hero text-primary max-w-3xl leading-tight">
+                    Automate your <br/>
+<span class="text-gradient-lime italic">Instagram Growth.</span>
+</h1>
+<p class="font-body-base text-body-base text-on-surface-variant max-w-xl text-lg">
+                    Insta Auto merges high-performance automation utility with self-hosted freedom. Turn comments into conversions seamlessly.
+                </p>
+<div class="flex items-center gap-6 pt-4">
+<button class="btn-kinetic">
+                        Get Started
+                        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-primary-fixed transition-colors flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-[16px]">play_circle</span>
+                        View Telemetry
+                    </a>
+</div>
+</div>
+<!-- Central 3D Rotating AI Core Placeholder -->
+<div class="flex-1 relative w-full h-[500px] flex justify-center items-center">
+<!-- Abstract Representation of Holographic Core -->
+<div class="absolute inset-0 flex items-center justify-center animate-float">
+<div class="w-64 h-64 rounded-full border border-primary-fixed/30 absolute animate-[spin_10s_linear_infinite]" style="transform: rotateX(60deg) rotateY(20deg);"></div>
+<div class="w-80 h-80 rounded-full border border-secondary-container/40 absolute animate-[spin_15s_linear_infinite_reverse]" style="transform: rotateX(40deg) rotateY(70deg);"></div>
+<div class="w-48 h-48 bg-surface-card rounded-full shadow-[0_0_80px_rgba(164,215,6,0.2)] border border-primary-fixed/20 backdrop-blur-3xl flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-6xl text-primary-fixed" style="font-variation-settings: 'FILL' 1;">model_training</span>
+</div>
+</div>
+<!-- Shaders/3D would go here if assets were available, using placeholder aesthetic for now -->
+</div>
+</section>
+<!-- FEATURES BENTO GRID -->
+<section class="w-full max-w-[1152px] px-gutter py-section-gap z-10" id="features">
+<div class="mb-16">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-4">Powerful Automation Features</h2>
+<p class="text-on-surface-variant max-w-2xl">Tactile, responsive modules designed for maximum displacement within the digital ecosystem.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[300px]">
+<!-- Comment-to-DM (Spans 8 cols) -->
+<div class="glass-panel kinetic-hover rounded-2xl col-span-1 md:col-span-8 p-8 flex flex-col justify-between overflow-hidden relative group">
+<div class="absolute top-0 right-0 w-64 h-64 bg-secondary-container/20 blur-[80px] rounded-full translate-x-1/2 -translate-y-1/2 group-hover:bg-primary-fixed/20 transition-colors duration-500"></div>
+<div class="z-10">
+<div class="w-12 h-12 rounded-xl bg-surface/50 border border-border-glass flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">forum</span>
+</div>
+<h3 class="font-headline-lg text-[24px] text-primary mb-2">Auto Reply to Comments</h3>
+<p class="text-on-surface-variant max-w-md">Automatically reply to comments and send personalized direct messages to your audience.</p>
+</div>
+<div class="z-10 flex items-end justify-end">
+<div class="bg-surface-dim/80 backdrop-blur-md border border-border-glass rounded-lg p-4 flex items-center gap-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-xl">
+<img alt="User avatar" class="w-8 h-8 rounded-full object-cover" data-alt="A close up of a glossy dark glass UI notification card glowing with a subtle neon lime edge, floating in a deep black space, symbolizing a received direct message." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbSUGPXfIs3ZnTcp3tcfLZw8PyxxklZdkG_O7OG-lJAv_zE20aSMv94kKHvWCW7fCR5yyKdyG69OA6CELIySzHkLlccV3WPz8-LBoHMfYR4SoJ8M5ez6paldDMg58N35VmticL3vtMqDOrPGsVCKOZNMYLYdAjsKpvitUmSM3j-nKoCahORanFZTbnDUCnM7K5VhEDOU3XM4ZzlKWdzLEaSOeFv8uFv1AUusH7-FNsJNMngdzNbuqh"/>
+<div>
+<p class="text-sm text-primary font-medium">"Send me the link"</p>
+<p class="text-xs text-primary-fixed">Automated Reply Sent</p>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Humanizer (Spans 4 cols) -->
+<div class="glass-panel kinetic-hover rounded-2xl col-span-1 md:col-span-4 p-8 flex flex-col justify-between group">
+<div class="z-10">
+<div class="w-12 h-12 rounded-xl bg-surface/50 border border-border-glass flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-secondary-fixed" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<h3 class="font-headline-lg text-[24px] text-primary mb-2">Self-Hosted</h3>
+<p class="text-on-surface-variant">Deploy Insta Auto on your own servers for maximum privacy and control over your data.</p>
+</div>
+<div class="mt-8 flex items-center justify-between border-t border-border-glass pt-4">
+<span class="font-label-mono text-label-mono text-text-muted">PRIVACY SCORE</span>
+<span class="font-label-mono text-label-mono text-primary-fixed">100%</span>
+</div>
+</div>
+<!-- Metrics (Spans 4 cols) -->
+<div class="glass-panel kinetic-hover rounded-2xl col-span-1 md:col-span-4 p-8 flex flex-col justify-center items-center text-center">
+<span class="material-symbols-outlined text-4xl text-primary-fixed mb-4">monitoring</span>
+<h4 class="font-display-hero-mobile text-[48px] text-primary mb-2">2.4M</h4>
+<p class="font-label-mono text-label-mono text-on-surface-variant tracking-widest uppercase">Comments Processed</p>
+</div>
+<!-- Flow Builder (Spans 8 cols) -->
+<div class="glass-panel kinetic-hover rounded-2xl col-span-1 md:col-span-8 p-8 flex flex-col md:flex-row items-center gap-8 relative overflow-hidden group">
+<div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+<div class="flex-1 z-10">
+<h3 class="font-headline-lg text-[24px] text-primary mb-2">Visual Automation Flow</h3>
+<p class="text-on-surface-variant mb-6">Build complex Instagram automation pathways using a tactile, drag-and-drop node interface.</p>
+<button class="font-label-mono text-label-mono text-primary hover:text-primary-fixed transition-colors flex items-center gap-2 border border-border-glass rounded-full px-6 py-2 bg-surface/50 hover:bg-surface-container-high">
+                            Open Matrix
+                        </button>
+</div>
+<div class="flex-1 z-10 w-full h-full relative min-h-[150px]">
+<!-- Abstract Node Representation -->
+<div class="absolute right-10 top-1/2 -translate-y-1/2 flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-card border border-primary-fixed/50 flex items-center justify-center shadow-[0_0_15px_rgba(164,215,6,0.2)]">
+<span class="material-symbols-outlined text-primary-fixed">input</span>
+</div>
+<div class="h-0.5 w-12 bg-primary-fixed/30 relative">
+<div class="absolute inset-0 bg-primary-fixed blur-[2px] opacity-50"></div>
+</div>
+<div class="w-12 h-12 rounded-lg bg-secondary-container/20 border border-secondary-fixed/50 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary-fixed">hub</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA SECTION -->
+<section class="w-full max-w-[1152px] px-gutter py-section-gap z-10">
+<div class="glass-panel rounded-3xl p-16 flex flex-col items-center text-center relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-b from-primary-fixed/5 to-transparent pointer-events-none"></div>
+<span class="material-symbols-outlined text-6xl text-primary-fixed mb-6" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+<h2 class="font-display-hero-mobile md:font-display-hero text-[48px] md:text-[64px] text-primary mb-6">
+                    Ready to automate your <span class="text-gradient-lime">Instagram</span>?
+                </h2>
+<p class="text-on-surface-variant max-w-xl mx-auto mb-10 text-lg">
+                    Deploy your first Instagram automation flow in under 60 seconds. High-performance utility awaits.
+                </p>
+<button class="btn-kinetic px-8 py-4 text-[13px]">
+                    Get Started
+                    <span class="material-symbols-outlined">terminal</span>
+</button>
+</div>
+</section>
+</main>
+<!-- Simple Footer -->
+<footer class="w-full border-t border-border-glass py-8 z-10 bg-surface/50 backdrop-blur-lg">
+<div class="max-w-[1152px] mx-auto px-gutter flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="font-label-mono text-label-mono text-text-muted">
+                © 2024 Insta Auto. All rights reserved.
             </div>
-
-            <h1 className="fade-up font-display font-medium text-[13vw] md:text-[5.2rem] leading-[0.98] tracking-tight" style={{ animationDelay: "100ms" }}>
-              Reply to every DM
-              <br />
-              <span className="italic text-[var(--lime)]">before you finish</span>
-              <br />
-              your coffee.
-            </h1>
-
-            <p className="fade-up mt-7 text-neutral-400 text-base md:text-lg max-w-lg leading-relaxed" style={{ animationDelay: "180ms" }}>
-              Comment-to-DM funnels, keyword triggers, story reactions, AI replies, a live inbox,
-              and Reels scheduling — the open-source ManyChat alternative. Your data lives in your own Supabase, not ours.
-            </p>
-
-            <div className="fade-up mt-9 flex flex-wrap items-center gap-3" style={{ animationDelay: "260ms" }}>
-              <button onClick={handleLogin}
-                className="lime-btn glow-pulse group flex items-center gap-2 font-mono-ui text-sm font-bold px-6 py-3.5 rounded-full">
-                <InstagramLogo className="w-4 h-4" />
-                Connect Instagram
-                <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform" />
-              </button>
-              {process.env.NODE_ENV === "development" && (
-                <button onClick={handleTestLogin}
-                  className="chip flex items-center gap-2 font-mono-ui text-sm font-bold text-neutral-300 border border-white/15 px-6 py-3.5 rounded-full">
-                  <Terminal className="w-4 h-4" />
-                  Dev Login
-                </button>
-              )}
-              <a href={TELEGRAM_URL} target="_blank" rel="noreferrer"
-                className="chip flex items-center gap-2 font-mono-ui text-sm text-neutral-300 border border-white/15 px-6 py-3.5 rounded-full">
-                <TelegramLogo className="logo-glow logo-glow-tg w-4 h-4" />
-                Telegram support
-              </a>
-            </div>
-          </div>
-
-          {/* Signature element: live animated DM mockup */}
-          <div className="fade-up relative" style={{ animationDelay: "220ms" }}>
-            <div className="panel-solid rounded-[22px] p-5 shadow-2xl shadow-black/60 max-w-sm mx-auto">
-              <div className="flex items-center gap-2.5 pb-4 border-b border-white/[0.08]">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[var(--lime)] to-[var(--violet)]" />
-                <div>
-                  <p className="text-[13px] font-semibold">creator.studio</p>
-                  <p className="text-[10px] text-neutral-500 font-mono-ui">automation active</p>
-                </div>
-                <span className="ml-auto relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--lime)] opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--lime)]" />
-                </span>
-              </div>
-
-              <div className="pt-4 space-y-2.5 min-h-[220px]">
-                {dmStep >= 0 && (
-                  <div className="pop-in flex justify-end">
-                    <div className="bg-white/[0.08] rounded-2xl rounded-tr-sm px-3.5 py-2 text-[12.5px] max-w-[75%]">
-                      commented "PRICE" on your reel 🔥
-                    </div>
-                  </div>
-                )}
-                {dmStep >= 1 && (
-                  <div className="pop-in flex justify-start">
-                    <div className="bg-[var(--lime)]/15 border border-[var(--lime)]/25 rounded-2xl rounded-tl-sm px-3.5 py-2 text-[12.5px] max-w-[80%]">
-                      Sent you the price list in your DMs ✅
-                    </div>
-                  </div>
-                )}
-                {dmStep >= 2 && (
-                  <div className="pop-in flex justify-start">
-                    <div className="bg-white/[0.06] border border-white/10 rounded-2xl rounded-tl-sm px-3.5 py-2 text-[12.5px] max-w-[85%]">
-                      Hey! Here's our full lineup + bundle pricing 📎
-                    </div>
-                  </div>
-                )}
-                {dmStep >= 3 && (
-                  <div className="pop-in flex justify-end">
-                    <div className="bg-white/[0.08] rounded-2xl rounded-tr-sm px-3.5 py-2 text-[12.5px] max-w-[75%]">
-                      perfect, do you ship to Lahore?
-                    </div>
-                  </div>
-                )}
-                {dmStep >= 4 && (
-                  <div className="pop-in flex justify-start items-center gap-1.5">
-                    <div className="bg-white/[0.06] border border-white/10 rounded-2xl rounded-tl-sm px-3.5 py-2 text-[12.5px] max-w-[80%] flex items-center gap-1">
-                      Yes — nationwide<span className="caret">|</span>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="mt-4 pt-3 border-t border-white/[0.08] flex items-center justify-between font-mono-ui text-[10px] text-neutral-500">
-                <span className="flex items-center gap-1"><CheckCheck className="w-3 h-3 text-[var(--lime)]" /> auto-replied in 0.4s</span>
-                <span>AI + rules</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Ticker */}
-        <div className="relative border-y border-white/[0.08] py-3 overflow-hidden bg-white/[0.02]">
-          <div className="ticker-track flex whitespace-nowrap font-mono-ui text-[11px] uppercase tracking-[0.2em] text-neutral-500 gap-8 w-max">
-            {Array.from({ length: 2 }).map((_, copy) => (
-              <div key={copy} className="flex gap-8">
-                {["comment → DM", "keyword triggers", "story reactions", "AI auto-reply", "live inbox", "ice breakers", "follow gate", "quick replies", "media attachments", "public + private replies"].map((t) => (
-                  <span key={t} className="flex items-center gap-8">
-                    {t} <span className="text-[var(--lime)]">◆</span>
-                  </span>
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Bento features */}
-        <section className="px-5 md:px-10 py-20 max-w-6xl mx-auto">
-          <div className="flex items-end justify-between mb-10 gap-6">
-            <h2 className="font-display font-medium text-3xl md:text-5xl max-w-lg leading-[1.05]">
-              Everything the paid tools do. None of the invoice.
-            </h2>
-            <div className="rule hidden md:block h-px flex-1 mb-3" />
-          </div>
-
-          <div className="grid md:grid-cols-6 gap-3">
-            <Bento span="md:col-span-3 md:row-span-2" icon={<Brain className="w-5 h-5" />} title="AI auto-reply"
-              desc="Feed it your account context — niche, products, tone — and let AI handle unmatched DMs like a human would, 24/7." big />
-            <Bento span="md:col-span-3" icon={<MessageCircle className="w-5 h-5" />} title="Comment → DM funnels"
-              desc="Keyword or reply-all triggers on any post. DM only, public reply only, or both." />
-            <Bento span="md:col-span-3" icon={<Inbox className="w-5 h-5" />} title="Live inbox"
-              desc="Every conversation in one dashboard. Jump in manually anytime." />
-            <Bento span="md:col-span-2" icon={<AtSign className="w-5 h-5" />} title="Story triggers"
-              desc="React to mentions, emoji reactions, replies." />
-            <Bento span="md:col-span-2" icon={<Lock className="w-5 h-5" />} title="Follow gate"
-              desc="Lock content behind a follow, one tap to unlock." />
-            <Bento span="md:col-span-2" icon={<Terminal className="w-5 h-5" />} title="Self-hosted"
-              desc="Next.js + Supabase. Own your data and tokens." />
-          </div>
-        </section>
-
-        {/* Community */}
-        <section className="px-5 md:px-10 pb-24 max-w-6xl mx-auto">
-          <div className="relative rounded-[24px] p-8 md:p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 panel-solid overflow-hidden">
-            <div className="blob pointer-events-none absolute -top-24 -right-24 w-64 h-64 rounded-full bg-[var(--lime)]/10 blur-[90px]" />
-            <div className="relative">
-              <h3 className="font-display font-medium text-3xl md:text-4xl mb-2">Built in the open.</h3>
-              <p className="text-neutral-500 text-sm max-w-md">
-                Questions, bugs, feature requests — the Telegram chat is where it all happens.
-                Follow along on Instagram and YouTube too.
-              </p>
-            </div>
-            <div className="relative flex flex-wrap items-center gap-3">
-              <a href={TELEGRAM_URL} target="_blank" rel="noreferrer"
-                className="chip flex items-center gap-2 border border-white/15 text-white font-mono-ui text-xs font-bold px-5 py-3 rounded-full">
-                <TelegramLogo className="logo-glow logo-glow-tg w-3.5 h-3.5" /> Join Telegram
-              </a>
-              <a href={YOUTUBE_URL} target="_blank" rel="noreferrer"
-                className="chip flex items-center gap-2 border border-white/15 text-neutral-300 font-mono-ui text-xs font-bold px-5 py-3 rounded-full">
-                <YoutubeLogo className="logo-glow logo-glow-yt w-3.5 h-3.5" /> Subscribe
-              </a>
-              <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer"
-                className="chip flex items-center gap-2 border border-white/15 text-neutral-300 font-mono-ui text-xs font-bold px-5 py-3 rounded-full">
-                <InstagramLogo className="logo-glow logo-glow-ig w-3.5 h-3.5" /> Follow
-              </a>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      {/* Footer */}
-      <footer className="relative border-t border-white/[0.08] px-5 md:px-10 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
-        <span className="font-mono-ui text-[11px] text-neutral-600">
-          INSTA AUTO BY SHAHROZ MALIK — Instagram automation.
-        </span>
-        <div className="flex items-center gap-5 font-mono-ui text-[11px] text-neutral-500">
-          <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="hover:text-[var(--lime)] transition-colors">Instagram</a>
-          <a href={YOUTUBE_URL} target="_blank" rel="noreferrer" className="hover:text-[var(--lime)] transition-colors">YouTube</a>
-          <a href={TELEGRAM_URL} target="_blank" rel="noreferrer" className="hover:text-[var(--lime)] transition-colors">Telegram support</a>
-        </div>
-      </footer>
-    </div>
-  )
-}
-
-function Bento({ icon, title, desc, span, big }: { icon: React.ReactNode; title: string; desc: string; span: string; big?: boolean }) {
-  return (
-    <div className={`bento-item panel rounded-2xl p-6 flex flex-col ${span} ${big ? "justify-between" : ""}`}>
-      <div className="w-9 h-9 rounded-lg border border-white/10 flex items-center justify-center text-[var(--lime)] mb-4">
-        {icon}
-      </div>
-      <div>
-        <h3 className={`font-display font-medium ${big ? "text-2xl mb-2" : "text-base mb-1.5"}`}>{title}</h3>
-        <p className={`text-neutral-500 leading-relaxed ${big ? "text-sm" : "text-[12.5px]"}`}>{desc}</p>
-      </div>
-    </div>
-  )
-}
+<div class="flex gap-6">
+<a class="font-label-mono text-label-mono text-text-muted hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="font-label-mono text-label-mono text-text-muted hover:text-primary transition-colors" href="#">Terms</a>
+<a class="font-label-mono text-label-mono text-text-muted hover:text-primary transition-colors" href="#">System Status</a>
+</div>
+</div>
+</footer>
+</body></html>
