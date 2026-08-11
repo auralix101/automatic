@@ -174,16 +174,7 @@ async function verifyFollowStatus(igScopedId: string, pageAccessToken: string): 
   }
 }
    
-  catch (error: any) {
-    console.error("[webhook] Error checking follow status:", error)
-    // AbortSignal.timeout throws AbortError/TimeoutError -- both are transient
-    if (error?.name === "AbortError" || error?.name === "TimeoutError") {
-      return { follows: null, error: 'transient' }
-    }
-    // Network error → transient, fail open
-    return { follows: null, error: 'transient' }
-  }
-}
+
 
 // Unlock-attempt counter is in lib/unlock-tracking.ts -- uses Supabase
 // unlock_attempts table so the 3-attempt cap works across Vercel instances.
